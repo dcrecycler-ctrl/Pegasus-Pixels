@@ -34,14 +34,14 @@ export default function Home() {
               <h1>
                 Sistemas que<br />
                 <span className="indent">
-                  <em className="h1-operan">operan</em>
+                  <em className="h1-operan">gestionan</em>
                 </span><br />
                 tu negocio, no<br />
                 solo lo presentan.
               </h1>
 
               <p className="sub">
-                Conectamos <em>adquisición, operaciones y comunicación</em> en una sola capa de tecnología. Dashboards reales, flujos automatizados, sistemas que operan donde más importa.
+                Conectamos <em>adquisición, operaciones y comunicación</em> en una sola capa de tecnología. Dashboards reales, flujos automatizados, sistemas que gestionan donde más importa.
               </p>
 
               <div className="ctas">
