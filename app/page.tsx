@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Topbar from './components/Topbar'
 
 export default function Home() {
@@ -54,25 +55,13 @@ export default function Home() {
             {/* Right: portrait + floating cards */}
             <div className="hero-right">
               <div className="portrait-slot">
-                <div className="portrait-placeholder" aria-hidden="true">
-                  <div className="monogram">A.</div>
-                  <div className="corner tl" />
-                  <div className="corner br" />
-                  <div className="silhouette">
-                    <svg viewBox="0 0 240 320" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M120 38 C 88 38, 68 64, 68 96 C 68 122, 80 144, 96 154 C 92 168, 78 180, 60 188 C 36 198, 18 216, 12 244 L 12 320 L 228 320 L 228 244 C 222 216, 204 198, 180 188 C 162 180, 148 168, 144 154 C 160 144, 172 122, 172 96 C 172 64, 152 38, 120 38 Z" fill="rgba(255,250,238,0.92)" />
-                      <path d="M120 38 C 152 38, 172 64, 172 96 C 172 122, 160 144, 144 154 L 144 154 C 142 144, 138 130, 134 118 C 138 102, 138 84, 132 68 C 128 56, 122 46, 120 38 Z" fill="rgba(60,30,10,0.08)" />
-                      <path d="M88 196 C 92 210, 108 220, 120 220 C 132 220, 148 210, 152 196" stroke="rgba(60,30,10,0.18)" strokeWidth="1.5" fill="none" />
-                    </svg>
-                  </div>
-                  <div className="pp-caption">
-                    <div>
-                      <div className="pp-name">Alejandro</div>
-                      <div className="pp-role">Operador · Pegasus Pixels</div>
-                    </div>
-                    <span className="pp-role">Soltar foto aquí</span>
-                  </div>
-                </div>
+                <Image
+                  src="/portrait.png"
+                  alt="Alejandro, fundador de Pegasus Pixels"
+                  fill
+                  style={{ objectFit: 'cover', objectPosition: 'center top' }}
+                  priority
+                />
               </div>
 
               {/* Floating workflow cards */}
