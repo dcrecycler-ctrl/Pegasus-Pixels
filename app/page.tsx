@@ -34,15 +34,7 @@ export default function Home() {
               <h1>
                 Sistemas que<br />
                 <span className="indent">
-                  <span className="gtext">
-                    operan
-                    <span className="overlay" aria-hidden="true">
-                      <span className="blob b1" />
-                      <span className="blob b2" />
-                      <span className="blob b3" />
-                      <span className="blob b4" />
-                    </span>
-                  </span>
+                  <em className="h1-operan">operan</em>
                 </span><br />
                 tu negocio, no<br />
                 solo lo presentan.
