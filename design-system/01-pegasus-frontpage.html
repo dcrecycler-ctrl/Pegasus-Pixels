@@ -1,0 +1,1453 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Pegasus Pixels — Sistemas de tecnología para negocios</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+<script src="image-slot.js"></script>
+<style>
+  /* =========================================================
+     Tokens — same warm Light system as Brand Direction v2
+     ========================================================= */
+  :root{
+    --bg:        #FAFAF7;
+    --bg-soft:   #F4F2EC;
+    --bg-warm:   #FBF9F2;
+    --paper:     #FFFFFF;
+    --rule:      #E4E0D4;
+    --rule-2:    #D2CDBC;
+    --ink:       #0A0A0B;
+    --ink-2:     #3D3B36;
+    --ink-3:     #6E6C66;
+    --ink-4:     #A09C90;
+    --sun:       oklch(0.86 0.16 92);
+    --sun-dim:   oklch(0.74 0.14 90);
+    --sun-deep:  oklch(0.62 0.16 88);
+    --sun-glow:  oklch(0.86 0.18 92 / .38);
+    --ok:        oklch(0.55 0.12 150);
+
+    --gt-1: 42 90% 55%;
+    --gt-2: 28 85% 60%;
+    --gt-3: 18 70% 55%;
+    --gt-4: 50 30% 88%;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  html, body{ margin: 0; padding: 0; background: var(--bg); color: var(--ink); }
+  body{
+    font-family: "Geist", ui-sans-serif, system-ui, sans-serif;
+    font-feature-settings: "ss01","ss02","cv11";
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    font-size: 17px;
+    line-height: 1.55;
+    overflow-x: hidden;
+  }
+  ::selection{ background: var(--sun); color: var(--ink); }
+  a{ color: inherit; text-decoration: none; }
+
+  h1, h2, h3, h4{ margin: 0; font-weight: 400; letter-spacing: -0.025em; color: var(--ink); }
+  h1{ font-size: clamp(48px, 6.4vw, 108px); line-height: 0.96; letter-spacing: -0.035em; }
+  h2{ font-size: clamp(36px, 4.8vw, 84px); line-height: 0.98; letter-spacing: -0.03em; }
+  h3{ font-size: clamp(22px, 2.2vw, 36px); line-height: 1.1; letter-spacing: -0.02em; font-weight: 500; }
+  h4{ font-size: clamp(18px, 1.4vw, 22px); line-height: 1.25; letter-spacing: -0.01em; font-weight: 500; }
+  p{ color: var(--ink-2); max-width: 60ch; margin: 0; text-wrap: pretty; }
+  .serif{ font-family: "Instrument Serif", serif; font-style: italic; font-weight: 400; letter-spacing: -0.015em; }
+  em.it{ font-family: "Instrument Serif", serif; font-style: italic; font-weight: 400; letter-spacing: -0.015em; color: var(--ink); }
+  .mono{ font-family: "Geist Mono", ui-monospace, monospace; font-size: 12px; letter-spacing: 0; color: var(--ink-3); }
+
+  .wrap{ max-width: 1320px; margin: 0 auto; padding: 0 clamp(24px, 5vw, 80px); }
+  section{ position: relative; }
+  hr.rule{ border: 0; height: 1px; background: var(--rule); margin: 0; }
+
+  /* =========================================================
+     Announcement ribbon (top bar)
+     ========================================================= */
+  .ribbon{
+    background: var(--ink);
+    color: var(--bg);
+    padding: 10px clamp(24px, 5vw, 80px);
+    display: flex; justify-content: center; align-items: center; gap: 12px;
+    font-size: 13px; letter-spacing: -0.005em;
+    position: relative; z-index: 60;
+  }
+  .ribbon .pulse{
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--sun);
+    box-shadow: 0 0 10px var(--sun-glow);
+  }
+  .ribbon a{ color: var(--sun); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+
+  /* =========================================================
+     Top bar
+     ========================================================= */
+  .topbar{
+    position: sticky; top: 0; z-index: 50;
+    padding: 18px clamp(24px, 5vw, 80px);
+    display: flex; justify-content: space-between; align-items: center;
+    backdrop-filter: blur(14px) saturate(140%);
+    background: rgba(250,250,247,0.72);
+    border-bottom: 1px solid rgba(228,224,212,0.6);
+  }
+  .topbar .brand{ display: flex; align-items: center; gap: 12px; font-size: 15.5px; font-weight: 500; letter-spacing: -0.005em; }
+  .topbar .brand .mark{
+    width: 24px; height: 24px; border-radius: 6px;
+    background: linear-gradient(135deg, #0A0A0B 0%, #2A2A2D 100%);
+    color: var(--bg);
+    display: flex; align-items: center; justify-content: center;
+    font-family: "Instrument Serif", serif; font-style: italic; font-size: 16px;
+    line-height: 1;
+  }
+  .topbar nav{ display: flex; align-items: center; gap: 32px; }
+  .topbar nav a{ font-size: 14px; color: var(--ink-2); transition: color .2s ease; }
+  .topbar nav a:hover{ color: var(--ink); }
+  .topbar .ctas{ display: flex; gap: 10px; align-items: center; }
+
+  .btn{
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 11px 18px;
+    border-radius: 999px;
+    font-family: "Geist", sans-serif; font-size: 14px; font-weight: 500;
+    cursor: pointer;
+    transition: transform .25s cubic-bezier(0.22, 1, 0.36, 1), background .2s ease, border-color .2s ease;
+    border: 1px solid transparent;
+    white-space: nowrap;
+  }
+  .btn.primary{ background: var(--ink); color: var(--bg); box-shadow: 0 1px 0 rgba(255,255,255,0.15) inset, 0 6px 20px rgba(10,10,11,0.10); }
+  .btn.primary:hover{ transform: translateY(-1px); background: #1A1A1F; }
+  .btn.secondary{ background: transparent; color: var(--ink); border-color: var(--rule-2); }
+  .btn.secondary:hover{ background: rgba(0,0,0,0.03); }
+  .btn.lg{ padding: 14px 24px; font-size: 15px; }
+  .btn .arrow{ display: inline-block; transition: transform .25s ease; }
+  .btn:hover .arrow{ transform: translateX(3px); }
+
+  @media (max-width: 900px){ .topbar nav{ display: none; } }
+
+  /* =========================================================
+     HERO — portrait + floating workflow cards
+     ========================================================= */
+  .hero{
+    position: relative;
+    overflow: hidden;
+    padding: clamp(64px, 8vw, 120px) 0 clamp(80px, 10vw, 160px);
+    background:
+      radial-gradient(1400px 1000px at -10% 110%, oklch(0.92 0.20 92 / .95), transparent 65%),
+      radial-gradient(1000px 800px at 35% 70%, oklch(0.94 0.18 90 / .55), transparent 60%),
+      radial-gradient(1000px 800px at 110% 110%, oklch(0.99 0.01 90 / .95), transparent 60%),
+      radial-gradient(600px 500px at 100% -10%, oklch(0.98 0.02 90 / .5), transparent 60%),
+      linear-gradient(180deg, oklch(0.94 0.10 90) 0%, oklch(0.96 0.08 90) 60%, oklch(0.97 0.05 90) 100%);
+  }
+  .hero-grid{
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+    gap: clamp(40px, 6vw, 96px);
+    align-items: center;
+  }
+  @media (max-width: 1000px){
+    .hero-grid{ grid-template-columns: 1fr; gap: 56px; }
+  }
+
+  /* Hero left column */
+  .hero-left{ max-width: 640px; }
+  .hero-rating{
+    display: inline-flex; align-items: center; gap: 12px;
+    padding: 6px 14px 6px 6px;
+    background: rgba(255,255,255,0.65);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(228,224,212,0.9);
+    border-radius: 999px;
+    font-size: 13px; color: var(--ink-2);
+    margin-bottom: clamp(28px, 4vw, 40px);
+  }
+  .hero-rating .avs{ display: flex; }
+  .hero-rating .avs .av{
+    width: 22px; height: 22px; border-radius: 50%;
+    background: linear-gradient(135deg, #F4F1E5, #E4E0D4);
+    border: 2px solid #FFFCF1;
+    margin-left: -6px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: "Instrument Serif", serif; font-style: italic; font-size: 11px; color: var(--ink);
+  }
+  .hero-rating .avs .av:first-child{ margin-left: 0; }
+  .hero-rating .avs .av:nth-child(2){ background: linear-gradient(135deg, #FBE6BF, #E5C282); }
+  .hero-rating .avs .av:nth-child(3){ background: linear-gradient(135deg, #E4D8C0, #B5A485); }
+  .hero-rating .stars{ color: var(--sun-deep); letter-spacing: 1px; font-size: 13px; }
+  .hero-rating .sep{ width: 1px; height: 14px; background: rgba(0,0,0,0.12); }
+
+  .hero h1{
+    max-width: 14ch;
+    letter-spacing: -0.04em;
+  }
+  .hero h1 .indent{ display: inline-block; padding-left: 1.2em; }
+  .hero h1 em{ color: var(--ink); }
+  .hero h1 .gt{
+    display: inline-flex;
+  }
+
+  .hero .sub{
+    margin-top: 28px;
+    max-width: 50ch;
+    font-size: clamp(19px, 1.5vw, 23px);
+    line-height: 1.4;
+    color: var(--ink-2);
+    letter-spacing: -0.005em;
+  }
+  .hero .sub em{ color: var(--ink); font-style: normal; font-family: "Instrument Serif", serif; font-style: italic; }
+
+  .hero .ctas{ margin-top: 40px; display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+  .hero .ctas .note{
+    margin-left: 12px; font-size: 13px; color: var(--ink-3);
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .hero .ctas .note::before{
+    content: "✓"; color: var(--ok); font-size: 14px;
+  }
+
+  /* Hero right column — portrait + cards */
+  .hero-right{
+    position: relative;
+    aspect-ratio: 4 / 5;
+    width: 100%;
+    max-width: 560px;
+    margin: 0 auto;
+  }
+  .portrait-slot{
+    position: absolute;
+    inset: 0;
+    width: 100%; height: 100%;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow:
+      0 30px 80px -20px rgba(80,60,20,0.25),
+      0 4px 16px rgba(60,50,20,0.10);
+  }
+  .portrait-slot image-slot{
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+  /* Decorative placeholder — visible when no image is dropped.
+     Sits BEHIND the image-slot so the user's image covers it. */
+  .portrait-placeholder{
+    position: absolute; inset: 0;
+    border-radius: 20px;
+    overflow: hidden;
+    z-index: 0;
+    background:
+      radial-gradient(120% 100% at 30% 0%, oklch(0.96 0.08 90) 0%, transparent 55%),
+      radial-gradient(120% 100% at 100% 100%, oklch(0.62 0.18 60 / .55) 0%, transparent 50%),
+      linear-gradient(160deg, oklch(0.92 0.16 90) 0%, oklch(0.78 0.20 80) 45%, oklch(0.52 0.18 60) 100%);
+  }
+  .portrait-placeholder::before{
+    /* fine paper grain */
+    content: "";
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(to right, rgba(255,255,255,0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255,255,255,0.04) 1px, transparent 1px);
+    background-size: 24px 24px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 0%, transparent 80%);
+    opacity: 0.6;
+  }
+  .portrait-placeholder .silhouette{
+    position: absolute;
+    left: 50%; top: 56%;
+    transform: translate(-50%, -50%);
+    width: 60%;
+    max-width: 280px;
+    opacity: 0.92;
+    filter: drop-shadow(0 18px 24px rgba(60,30,10,0.25));
+  }
+  .portrait-placeholder .silhouette svg{ width: 100%; height: auto; display: block; }
+  .portrait-placeholder .monogram{
+    position: absolute;
+    top: 28px; left: 28px;
+    font-family: "Instrument Serif", serif;
+    font-style: italic;
+    font-size: 56px;
+    color: rgba(20,15,5,0.42);
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .portrait-placeholder .caption{
+    position: absolute;
+    bottom: 24px; left: 28px; right: 28px;
+    display: flex; justify-content: space-between; align-items: baseline;
+    color: rgba(20,15,5,0.55);
+    font-size: 12px;
+    letter-spacing: -0.005em;
+  }
+  .portrait-placeholder .caption .name{
+    font-family: "Instrument Serif", serif;
+    font-style: italic;
+    font-size: 18px;
+    color: rgba(20,15,5,0.85);
+    letter-spacing: -0.015em;
+  }
+  .portrait-placeholder .caption .role{ font-size: 11.5px; color: rgba(20,15,5,0.5); }
+  /* corner marks for "frame" feel */
+  .portrait-placeholder .corner{
+    position: absolute;
+    width: 18px; height: 18px;
+    border: 1px solid rgba(255,255,255,0.55);
+  }
+  .portrait-placeholder .corner.tl{ top: 14px; right: 14px; border-right: 0; border-bottom: 0; }
+  .portrait-placeholder .corner.br{ bottom: 14px; right: 14px; border-left: 0; border-top: 0; }
+
+  /* Floating workflow cards layered on top of portrait */
+  .float-card{
+    position: absolute;
+    background: rgba(255,255,255,0.96);
+    backdrop-filter: blur(14px);
+    border: 1px solid rgba(255,255,255,0.7);
+    border-radius: 14px;
+    padding: 13px 16px;
+    display: flex; align-items: center; gap: 12px;
+    box-shadow:
+      0 20px 50px -16px rgba(80,60,20,0.22),
+      0 2px 6px rgba(60,50,20,0.08);
+    font-size: 13.5px;
+    color: var(--ink);
+    white-space: nowrap;
+    z-index: 3;
+  }
+  .float-card .ic{
+    width: 32px; height: 32px; border-radius: 8px;
+    background: linear-gradient(180deg, #FFFFFF, #F4F2EC);
+    border: 1px solid var(--rule);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--ink);
+    flex: none;
+  }
+  .float-card .ic.sun{
+    background: linear-gradient(180deg, oklch(0.94 0.16 90), oklch(0.86 0.18 92));
+    border-color: var(--sun-dim);
+    color: var(--ink);
+  }
+  .float-card .text{ display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+  .float-card .lbl{ font-size: 11.5px; color: var(--ink-3); letter-spacing: -0.005em; }
+  .float-card .val{ font-weight: 500; font-size: 14px; }
+  .float-card .val .num{ color: var(--ink-3); margin-left: 4px; font-weight: 400; }
+  .float-card .pulse{ width: 6px; height: 6px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 8px oklch(0.55 0.12 150 / .5); margin-left: 4px; }
+
+  /* Position each card */
+  .fc-1{ top: 6%; left: -8%; transform: rotate(-3deg); animation: float-1 9s ease-in-out infinite; }
+  .fc-2{ top: 28%; right: -12%; transform: rotate(2deg); animation: float-2 11s ease-in-out infinite; }
+  .fc-3{ top: 52%; left: -12%; transform: rotate(-1.5deg); animation: float-3 10s ease-in-out infinite; }
+  .fc-4{ bottom: 14%; right: -6%; transform: rotate(3deg); animation: float-4 12s ease-in-out infinite; }
+  .fc-5{ bottom: -3%; left: 12%; transform: rotate(-2deg); animation: float-5 13s ease-in-out infinite; }
+
+  @keyframes float-1 { 0%,100% { transform: translate(0,0) rotate(-3deg); } 50% { transform: translate(4px,-6px) rotate(-3.5deg); } }
+  @keyframes float-2 { 0%,100% { transform: translate(0,0) rotate(2deg); } 50% { transform: translate(-3px,-4px) rotate(2.5deg); } }
+  @keyframes float-3 { 0%,100% { transform: translate(0,0) rotate(-1.5deg); } 50% { transform: translate(3px,5px) rotate(-2deg); } }
+  @keyframes float-4 { 0%,100% { transform: translate(0,0) rotate(3deg); } 50% { transform: translate(-4px,3px) rotate(2.5deg); } }
+  @keyframes float-5 { 0%,100% { transform: translate(0,0) rotate(-2deg); } 50% { transform: translate(2px,-5px) rotate(-1.5deg); } }
+
+  @media (max-width: 600px){
+    .fc-1{ left: -4%; }
+    .fc-2{ right: -6%; }
+    .fc-3{ left: -8%; }
+    .fc-4{ right: -2%; }
+    .fc-5{ left: 8%; }
+  }
+
+  /* Hero bottom: logos / trust strip */
+  .hero-trust{
+    margin-top: clamp(72px, 9vw, 120px);
+    padding-top: 32px;
+    border-top: 1px solid rgba(0,0,0,0.08);
+    display: grid; grid-template-columns: 220px 1fr; gap: 40px; align-items: center;
+  }
+  .hero-trust .label{
+    font-size: 13.5px; color: var(--ink-3); line-height: 1.4; max-width: 18ch;
+  }
+  .hero-trust .logos{
+    display: flex; flex-wrap: wrap; gap: 32px 44px; align-items: center;
+    color: var(--ink-2);
+    font-size: 16px; font-weight: 500; letter-spacing: -0.005em;
+  }
+  .hero-trust .logos span{ opacity: 0.72; display: inline-flex; align-items: center; gap: 8px; }
+  .hero-trust .logos span svg{ width: 18px; height: 18px; }
+  @media (max-width: 700px){
+    .hero-trust{ grid-template-columns: 1fr; gap: 20px; }
+  }
+
+  /* =========================================================
+     SECTION: PROBLEM → PROMISE
+     ========================================================= */
+  .problem{
+    padding: clamp(120px, 14vw, 200px) 0;
+    background: var(--bg);
+  }
+  .problem .kicker{
+    font-size: 14px; color: var(--ink-3); margin-bottom: 28px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .problem .kicker::before{ content: ""; width: 28px; height: 1px; background: var(--ink-4); }
+  .problem h2{
+    max-width: 18ch;
+    margin-bottom: 32px;
+  }
+  .problem h2 em{ color: var(--ink-3); }
+  .problem .lede{
+    font-size: clamp(20px, 1.8vw, 26px);
+    line-height: 1.4;
+    color: var(--ink);
+    max-width: 32ch;
+    font-style: italic;
+    font-family: "Instrument Serif", serif;
+    font-weight: 400;
+    letter-spacing: -0.015em;
+  }
+
+  /* =========================================================
+     SECTION: STATS
+     ========================================================= */
+  .stats{
+    background: linear-gradient(180deg, var(--bg) 0%, var(--bg-soft) 100%);
+    padding: clamp(72px, 10vw, 140px) 0;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .stats-grid{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+  }
+  .stats-grid .stat{
+    padding: 16px clamp(16px, 3vw, 40px);
+    border-right: 1px solid var(--rule);
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .stats-grid .stat:first-child{ padding-left: 0; }
+  .stats-grid .stat:last-child{ border-right: 0; padding-right: 0; }
+  .stats-grid .stat .v{
+    font-size: clamp(48px, 5vw, 80px);
+    line-height: 1;
+    letter-spacing: -0.04em;
+    font-weight: 400;
+    color: var(--ink);
+  }
+  .stats-grid .stat .v .u{
+    font-size: 0.42em; color: var(--ink-3); margin-left: 2px; letter-spacing: -0.02em;
+  }
+  .stats-grid .stat .cap{
+    font-family: "Instrument Serif", serif;
+    font-style: italic;
+    font-size: clamp(15px, 1.2vw, 18px);
+    color: var(--ink-2);
+    line-height: 1.3;
+    max-width: 22ch;
+    margin-top: 4px;
+    letter-spacing: -0.005em;
+  }
+  @media (max-width: 800px){
+    .stats-grid{ grid-template-columns: 1fr 1fr; gap: 0; }
+    .stats-grid .stat{ border-right: 0; padding: 24px 16px; border-bottom: 1px solid var(--rule); }
+    .stats-grid .stat:nth-child(odd){ border-right: 1px solid var(--rule); }
+    .stats-grid .stat:nth-child(3), .stats-grid .stat:nth-child(4){ border-bottom: 0; }
+  }
+
+  /* =========================================================
+     SECTION: WORKFLOW (3 stages)
+     ========================================================= */
+  .workflow{
+    padding: clamp(120px, 14vw, 180px) 0;
+    background: var(--bg);
+  }
+  .workflow .head{ max-width: 760px; margin-bottom: clamp(64px, 8vw, 120px); }
+  .workflow .head .kicker{
+    font-size: 14px; color: var(--ink-3); margin-bottom: 24px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .workflow .head .kicker::before{ content: ""; width: 28px; height: 1px; background: var(--ink-4); }
+  .workflow .head h2{ max-width: 16ch; }
+  .workflow .head .sub{
+    margin-top: 24px;
+    font-size: clamp(18px, 1.4vw, 22px);
+    line-height: 1.4;
+    max-width: 50ch;
+    color: var(--ink-2);
+    font-family: "Instrument Serif", serif; font-style: italic;
+    letter-spacing: -0.01em;
+  }
+
+  .workflow-track{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(20px, 3vw, 40px);
+  }
+  .stage{
+    display: flex; flex-direction: column; gap: 24px;
+    position: relative;
+  }
+  .stage-visual{
+    aspect-ratio: 4 / 3;
+    border-radius: 16px;
+    background: linear-gradient(180deg, var(--paper), var(--bg-warm));
+    border: 1px solid var(--rule);
+    padding: 28px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 20px 50px -28px rgba(80,70,30,0.16);
+  }
+  .stage-visual .grid-bg{
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(to right, rgba(0,0,0,0.025) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(0,0,0,0.025) 1px, transparent 1px);
+    background-size: 32px 32px;
+    mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black 30%, transparent 80%);
+    pointer-events: none;
+  }
+  .stage:nth-child(1) .stage-visual{ background: linear-gradient(135deg, var(--paper) 0%, oklch(0.97 0.06 90) 100%); }
+  .stage:nth-child(2) .stage-visual{ background: linear-gradient(135deg, oklch(0.97 0.04 90) 0%, oklch(0.95 0.08 90) 100%); }
+  .stage:nth-child(3) .stage-visual{ background: linear-gradient(135deg, oklch(0.96 0.08 90) 0%, oklch(0.94 0.12 90) 100%); }
+
+  .stage-meta .n{ font-size: 13px; color: var(--ink-3); margin-bottom: 8px; }
+  .stage-meta h3{ font-size: clamp(20px, 1.8vw, 26px); line-height: 1.15; max-width: 18ch; }
+  .stage-meta h3 em{ color: var(--ink-3); }
+  .stage-meta p{ margin-top: 12px; max-width: 36ch; font-size: 15px; color: var(--ink-2); }
+
+  @media (max-width: 900px){
+    .workflow-track{ grid-template-columns: 1fr; }
+  }
+
+  /* Mini UI elements inside stage visuals */
+  .mini-card{
+    position: absolute;
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    padding: 10px 12px;
+    display: flex; align-items: center; gap: 10px;
+    box-shadow: 0 8px 24px -10px rgba(80,70,30,0.18);
+    font-size: 12.5px;
+    z-index: 2;
+  }
+  .mini-card .av{
+    width: 24px; height: 24px; border-radius: 50%;
+    background: linear-gradient(135deg, #F4F1E5, #C9C0A8);
+    border: 1px solid rgba(255,255,255,0.6);
+    flex: none;
+  }
+  .mini-card .av.b{ background: linear-gradient(135deg, #FBE6BF, #C5945A); }
+  .mini-card .av.c{ background: linear-gradient(135deg, #E0D6BD, #8A7E66); }
+  .mini-card .lbl{ font-size: 11px; color: var(--ink-3); }
+  .mini-card .val{ font-weight: 500; }
+  .mini-card .ic-tiny{
+    width: 22px; height: 22px; border-radius: 6px;
+    background: var(--bg-soft);
+    border: 1px solid var(--rule);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--ink-2);
+    flex: none;
+  }
+  .mini-card .ic-tiny.sun{ background: oklch(0.92 0.16 92); border-color: var(--sun-dim); }
+
+  /* Stage 1 — contacts list */
+  .s1-c1{ top: 18%; left: 12%; }
+  .s1-c2{ top: 36%; left: 24%; }
+  .s1-c3{ top: 54%; left: 14%; }
+  /* Stage 2 — pipeline timeline */
+  .s2-c1{ top: 22%; left: 14%; }
+  .s2-c2{ top: 42%; left: 28%; }
+  .s2-c3{ top: 62%; left: 16%; }
+  /* Stage 3 — message + meeting */
+  .s3-c1{ top: 14%; left: 10%; padding: 12px 14px; }
+  .s3-c2{ top: 56%; left: 22%; }
+
+  .timeline-line{
+    position: absolute; left: 22%; right: 22%; top: 50%;
+    height: 1px; background: linear-gradient(90deg, transparent, var(--rule-2), transparent);
+  }
+
+  /* =========================================================
+     SECTION: PILLARS (the engine) — 3 column editorial
+     ========================================================= */
+  .engine{
+    padding: clamp(120px, 14vw, 180px) 0;
+    background: linear-gradient(180deg, var(--bg-soft) 0%, var(--bg-warm) 100%);
+  }
+  .engine .head{ max-width: 780px; margin-bottom: clamp(64px, 8vw, 120px); }
+  .engine .head .kicker{
+    font-size: 14px; color: var(--ink-3); margin-bottom: 24px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .engine .head .kicker::before{ content: ""; width: 28px; height: 1px; background: var(--ink-4); }
+  .engine .head h2{ max-width: 14ch; }
+  .engine .head .sub{
+    margin-top: 24px;
+    font-size: clamp(18px, 1.4vw, 22px);
+    line-height: 1.4;
+    max-width: 50ch;
+    color: var(--ink-2);
+    font-family: "Instrument Serif", serif; font-style: italic;
+    letter-spacing: -0.01em;
+  }
+
+  .pillars{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  .pillar{
+    padding: clamp(32px, 4vw, 56px);
+    background: var(--paper);
+    display: flex; flex-direction: column; gap: 24px;
+    min-height: 360px;
+  }
+  .pillar .num-line{ display: flex; align-items: baseline; gap: 16px; justify-content: space-between; }
+  .pillar .num-line .n{ font-size: 13px; color: var(--ink-3); }
+  .pillar .num-line .tag{
+    font-size: 11.5px; padding: 4px 10px;
+    background: var(--bg-soft); border-radius: 999px;
+    color: var(--ink-3);
+  }
+  .pillar h3{ font-size: clamp(24px, 2.2vw, 34px); line-height: 1.05; max-width: 14ch; }
+  .pillar h3 em{ color: var(--ink-3); }
+  .pillar p{ font-size: 15.5px; color: var(--ink-2); max-width: 38ch; }
+  .pillar .list{
+    margin-top: auto;
+    padding-top: 24px;
+    border-top: 1px solid var(--rule);
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .pillar .list .li{
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 14px; color: var(--ink-2);
+  }
+  .pillar .list .li .v{ color: var(--ink-3); font-size: 13px; }
+  @media (max-width: 900px){
+    .pillars{ grid-template-columns: 1fr; }
+  }
+
+  /* =========================================================
+     SECTION: TESTIMONIAL — big single quote
+     ========================================================= */
+  .testimonial{
+    padding: clamp(120px, 14vw, 200px) 0;
+    background: var(--bg);
+  }
+  .testimonial .inner{
+    max-width: 980px;
+    margin: 0 auto;
+    text-align: left;
+  }
+  .testimonial .kicker{
+    font-size: 14px; color: var(--ink-3); margin-bottom: 40px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .testimonial .kicker::before{ content: ""; width: 28px; height: 1px; background: var(--ink-4); }
+  .testimonial blockquote{
+    margin: 0; padding: 0;
+    font-size: clamp(28px, 3.4vw, 52px);
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    font-weight: 400;
+    max-width: 22ch;
+  }
+  .testimonial blockquote em{
+    font-family: "Instrument Serif", serif;
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: -0.015em;
+  }
+  .testimonial .attribution{
+    margin-top: clamp(40px, 5vw, 64px);
+    padding-top: 24px;
+    border-top: 1px solid var(--rule);
+    display: flex; align-items: center; gap: 16px;
+  }
+  .testimonial .attribution .av{
+    width: 56px; height: 56px; border-radius: 50%;
+    background: linear-gradient(135deg, #F4F1E5, #C9C0A8);
+    border: 1px solid var(--rule-2);
+    display: flex; align-items: center; justify-content: center;
+    font-family: "Instrument Serif", serif; font-style: italic; font-size: 22px;
+    color: var(--ink);
+  }
+  .testimonial .attribution .meta{ display: flex; flex-direction: column; gap: 2px; }
+  .testimonial .attribution .meta .name{ font-size: 15.5px; font-weight: 500; }
+  .testimonial .attribution .meta .role{ font-size: 13.5px; color: var(--ink-3); }
+  .testimonial .attribution .verified{
+    margin-left: auto;
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 12.5px; color: var(--ink-3);
+  }
+  .testimonial .attribution .verified::before{
+    content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 6px oklch(0.55 0.12 150 / .5);
+  }
+
+  /* =========================================================
+     SECTION: USE CASES
+     ========================================================= */
+  .usecases{
+    padding: clamp(120px, 14vw, 180px) 0;
+    background: linear-gradient(180deg, var(--bg) 0%, var(--bg-soft) 100%);
+  }
+  .usecases .head{ max-width: 780px; margin-bottom: clamp(56px, 7vw, 96px); }
+  .usecases .head .kicker{
+    font-size: 14px; color: var(--ink-3); margin-bottom: 24px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .usecases .head .kicker::before{ content: ""; width: 28px; height: 1px; background: var(--ink-4); }
+  .usecases .head h2{ max-width: 14ch; }
+  .usecases .head .sub{
+    margin-top: 24px;
+    font-size: clamp(18px, 1.4vw, 22px);
+    line-height: 1.4;
+    max-width: 50ch;
+    color: var(--ink-2);
+    font-family: "Instrument Serif", serif; font-style: italic;
+  }
+
+  .uc-grid{
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr;
+    gap: clamp(16px, 2.5vw, 24px);
+  }
+  .uc-grid > div:first-child{ grid-row: span 2; }
+  .uc{
+    border-radius: 16px;
+    padding: clamp(32px, 4vw, 48px);
+    min-height: 320px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    position: relative; overflow: hidden;
+    border: 1px solid var(--rule);
+  }
+  .uc.tall{ min-height: 660px; }
+  .uc-1{ background: linear-gradient(180deg, var(--ink) 0%, #1A1A1F 100%); color: var(--bg); border-color: var(--ink); }
+  .uc-1 .label{ color: rgba(255,255,255,0.5); }
+  .uc-1 h3 em{ color: rgba(255,255,255,0.6); }
+  .uc-2{ background: linear-gradient(135deg, oklch(0.94 0.14 90) 0%, oklch(0.88 0.18 92) 100%); }
+  .uc-3{ background: linear-gradient(180deg, var(--paper) 0%, var(--bg-warm) 100%); }
+  .uc-4{ background: linear-gradient(135deg, oklch(0.96 0.08 90) 0%, oklch(0.93 0.16 90) 100%); }
+  .uc-5{ background: linear-gradient(180deg, var(--paper) 0%, var(--bg-soft) 100%); }
+
+  .uc .label{
+    font-size: 13px; color: var(--ink-3); display: inline-flex; align-items: center; gap: 8px;
+  }
+  .uc h3{
+    font-size: clamp(22px, 2vw, 30px); line-height: 1.1; max-width: 16ch;
+    letter-spacing: -0.02em;
+  }
+  .uc h3 em{ color: var(--ink-3); }
+  .uc .arrow-link{
+    display: inline-flex; align-items: center; gap: 8px;
+    margin-top: 16px;
+    font-size: 14px;
+    color: var(--ink);
+  }
+  .uc-1 .arrow-link{ color: var(--sun); }
+  .uc .arrow-link svg{ width: 14px; height: 14px; transition: transform .25s; }
+  .uc:hover .arrow-link svg{ transform: translateX(3px); }
+
+  /* uc-1 hero block decoration */
+  .uc-1 .deco{
+    position: absolute; right: -40px; bottom: -40px;
+    width: 320px; height: 320px;
+    border-radius: 50%;
+    background: radial-gradient(circle, oklch(0.86 0.18 92 / .35), transparent 70%);
+    filter: blur(20px);
+    pointer-events: none;
+  }
+  .uc-1 .mini-chart{
+    margin-top: 28px;
+    height: 120px;
+    width: 100%;
+    position: relative;
+  }
+  .uc-1 .mini-chart svg{ width: 100%; height: 100%; }
+
+  @media (max-width: 900px){
+    .uc-grid{ grid-template-columns: 1fr; }
+    .uc-grid > div:first-child{ grid-row: auto; }
+    .uc.tall{ min-height: 380px; }
+  }
+
+  /* =========================================================
+     SECTION: CLOSING CTA
+     ========================================================= */
+  .closing{
+    padding: clamp(120px, 16vw, 220px) 0 clamp(80px, 10vw, 140px);
+    background: linear-gradient(180deg, var(--bg-soft) 0%, var(--bg-warm) 100%);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .closing::before{
+    content: "";
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(800px 500px at 50% 100%, oklch(0.92 0.20 92 / .5), transparent 60%);
+    pointer-events: none;
+  }
+  .closing-inner{ position: relative; z-index: 2; }
+  .closing h2{
+    font-size: clamp(48px, 7vw, 120px);
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+    max-width: 14ch;
+    margin: 0 auto;
+  }
+  .closing h2 em{
+    font-family: "Instrument Serif", serif;
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+  }
+  .closing .sub{
+    margin: clamp(28px, 4vw, 40px) auto 0;
+    max-width: 36ch;
+    font-size: clamp(17px, 1.3vw, 20px);
+    color: var(--ink-2);
+    line-height: 1.45;
+  }
+  .closing .ctas{
+    margin-top: clamp(40px, 5vw, 64px);
+    display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; align-items: center;
+  }
+  .closing .ctas .note{ font-size: 13px; color: var(--ink-3); margin-left: 12px; }
+
+  /* =========================================================
+     FOOTER
+     ========================================================= */
+  .footer{
+    background: var(--bg);
+    padding: clamp(64px, 8vw, 96px) 0 32px;
+    border-top: 1px solid var(--rule);
+  }
+  .footer-grid{
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 48px;
+  }
+  .footer-grid .brand-col{ max-width: 320px; }
+  .footer-grid .brand-col .brand{ display: flex; align-items: center; gap: 12px; font-size: 16px; font-weight: 500; margin-bottom: 14px; }
+  .footer-grid .brand-col .brand .mark{
+    width: 24px; height: 24px; border-radius: 6px;
+    background: linear-gradient(135deg, #0A0A0B 0%, #2A2A2D 100%);
+    color: var(--bg);
+    display: flex; align-items: center; justify-content: center;
+    font-family: "Instrument Serif", serif; font-style: italic; font-size: 16px;
+  }
+  .footer-grid .brand-col p{ font-size: 14.5px; color: var(--ink-2); }
+  .footer-grid .col h5{
+    margin: 0 0 16px 0;
+    font-size: 13px; color: var(--ink-3); font-weight: 500;
+    letter-spacing: -0.005em;
+  }
+  .footer-grid .col ul{ list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+  .footer-grid .col ul a{ color: var(--ink); font-size: 14.5px; }
+  .footer-grid .col ul a:hover{ color: var(--ink-3); }
+
+  .footer .bottom{
+    display: flex; justify-content: space-between; align-items: center;
+    padding-top: 24px;
+    border-top: 1px solid var(--rule);
+    font-size: 13px; color: var(--ink-3);
+  }
+  .footer .bottom .status{ display: inline-flex; align-items: center; gap: 8px; color: var(--ink-2); }
+  .footer .bottom .status::before{ content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 8px oklch(0.55 0.12 150 / .5); }
+  @media (max-width: 800px){
+    .footer-grid{ grid-template-columns: 1fr 1fr; gap: 32px; }
+    .footer .bottom{ flex-direction: column; gap: 12px; align-items: flex-start; }
+  }
+
+  /* =========================================================
+     GRADIENT TEXT (warm Pegasus palette)
+     ========================================================= */
+  @keyframes gradient-border {
+    0%, 100% { border-radius: 37% 29% 27% 27% / 28% 25% 41% 37%; }
+    25%      { border-radius: 47% 29% 39% 49% / 61% 19% 66% 26%; }
+    50%      { border-radius: 57% 23% 47% 72% / 63% 17% 66% 33%; }
+    75%      { border-radius: 28% 49% 29% 100% / 93% 20% 64% 25%; }
+  }
+  @keyframes gt-1 { 0%,100% { top: 0; right: 0; } 50% { top: 50%; right: 25%; } 75% { top: 25%; right: 50%; } }
+  @keyframes gt-2 { 0%,100% { top: 0; left: 0; } 60% { top: 75%; left: 25%; } 85% { top: 50%; left: 50%; } }
+  @keyframes gt-3 { 0%,100% { bottom: 0; left: 0; } 40% { bottom: 50%; left: 25%; } 65% { bottom: 25%; left: 50%; } }
+  @keyframes gt-4 { 0%,100% { bottom: 0; right: 0; } 50% { bottom: 25%; right: 40%; } 90% { bottom: 50%; right: 25%; } }
+  .gtext{
+    position: relative; display: inline-flex; overflow: hidden;
+    background: #FFFFFF; padding: 0 0.06em; border-radius: 6px;
+    isolation: isolate; line-height: 0.94;
+    box-shadow: inset 0 0 0 1px rgba(160,130,40,0.10), 0 1px 0 rgba(255,255,255,0.6);
+  }
+  .gtext .overlay{ position: absolute; inset: 0; pointer-events: none; mix-blend-mode: lighten; }
+  .gtext .blob{
+    position: absolute; width: 22vw; height: 22vw; max-width: 280px; max-height: 280px;
+    filter: blur(24px); mix-blend-mode: overlay; pointer-events: none;
+    animation-duration: 8s, 14s;
+    animation-timing-function: ease-in-out, ease-in-out;
+    animation-iteration-count: infinite, infinite;
+    animation-direction: normal, alternate;
+  }
+  .gtext .b1{ top: -50%; background: hsl(var(--gt-1)); animation-name: gradient-border, gt-1; }
+  .gtext .b2{ top: 0; right: 0; background: hsl(var(--gt-2)); animation-name: gradient-border, gt-2; }
+  .gtext .b3{ bottom: 0; left: 0; background: hsl(var(--gt-3)); animation-name: gradient-border, gt-3; }
+  .gtext .b4{ bottom: -50%; right: 0; background: hsl(var(--gt-4)); animation-name: gradient-border, gt-4; }
+
+</style>
+</head>
+<body>
+
+<!-- ============= RIBBON ============= -->
+<div class="ribbon" data-screen-label="00 Ribbon">
+  <span class="pulse"></span>
+  <span>Nuevo programa de diagnóstico operativo — agendá una sesión gratuita.</span>
+  <a href="#">Reservar →</a>
+</div>
+
+<!-- ============= TOP BAR ============= -->
+<header class="topbar" data-screen-label="01 Topbar">
+  <a class="brand" href="#"><span class="mark">P</span><span>Pegasus Pixels</span></a>
+  <nav>
+    <a href="#">Sistema</a>
+    <a href="#">Casos</a>
+    <a href="#">Operador</a>
+    <a href="#">Diagnóstico</a>
+    <a href="#">Precios</a>
+  </nav>
+  <div class="ctas">
+    <a class="btn secondary" href="#">Iniciar sesión</a>
+    <a class="btn primary" href="#">Agendar llamada <span class="arrow">→</span></a>
+  </div>
+</header>
+
+<!-- ============= HERO ============= -->
+<section class="hero" data-screen-label="02 Hero">
+  <div class="wrap">
+
+    <div class="hero-grid">
+
+      <!-- LEFT: copy column -->
+      <div class="hero-left">
+
+        <div class="hero-rating">
+          <div class="avs">
+            <span class="av">A</span>
+            <span class="av">M</span>
+            <span class="av">J</span>
+          </div>
+          <span class="stars">★★★★★</span>
+          <span class="sep"></span>
+          <span>Calificado por <em class="serif" style="color: var(--ink);">42 dueños de negocios</em></span>
+        </div>
+
+        <h1>
+          Sistemas que<br/>
+          <span class="indent"><span class="gtext">operan<span class="overlay" aria-hidden="true"><span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span><span class="blob b4"></span></span></span></span><br/>
+          tu negocio, no<br/>
+          solo lo presentan.
+        </h1>
+
+        <p class="sub">Conectamos <em>adquisición, operaciones y comunicación</em> en una sola capa de tecnología. Dashboards reales, flujos automatizados, IA aplicada donde mueve la aguja.</p>
+
+        <div class="ctas">
+          <a class="btn primary lg" href="#">Agendar diagnóstico <span class="arrow">→</span></a>
+          <a class="btn secondary lg" href="#">Ver capacidades</a>
+          <span class="note">Sin compromiso, 30 minutos</span>
+        </div>
+
+      </div>
+
+      <!-- RIGHT: portrait + floating cards -->
+      <div class="hero-right">
+
+        <div class="portrait-slot">
+          <!-- Editorial placeholder, visible until the user drops an image -->
+          <div class="portrait-placeholder" aria-hidden="true">
+            <div class="monogram">A.</div>
+            <div class="corner tl"></div>
+            <div class="corner br"></div>
+            <div class="silhouette">
+              <svg viewBox="0 0 240 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- abstract head + shoulders silhouette -->
+                <path d="M120 38 C 88 38, 68 64, 68 96 C 68 122, 80 144, 96 154 C 92 168, 78 180, 60 188 C 36 198, 18 216, 12 244 L 12 320 L 228 320 L 228 244 C 222 216, 204 198, 180 188 C 162 180, 148 168, 144 154 C 160 144, 172 122, 172 96 C 172 64, 152 38, 120 38 Z" fill="rgba(255,250,238,0.92)"/>
+                <!-- soft shadow on the right side of face -->
+                <path d="M120 38 C 152 38, 172 64, 172 96 C 172 122, 160 144, 144 154 L 144 154 C 142 144, 138 130, 134 118 C 138 102, 138 84, 132 68 C 128 56, 122 46, 120 38 Z" fill="rgba(60,30,10,0.08)"/>
+                <!-- collar line -->
+                <path d="M88 196 C 92 210, 108 220, 120 220 C 132 220, 148 210, 152 196" stroke="rgba(60,30,10,0.18)" stroke-width="1.5" fill="none"/>
+              </svg>
+            </div>
+            <div class="caption">
+              <div>
+                <div class="name">Alejandro</div>
+                <div class="role">Operador · Pegasus Pixels</div>
+              </div>
+              <span class="role">Soltar foto aquí</span>
+            </div>
+          </div>
+
+          <image-slot
+            id="hero-portrait"
+            shape="rounded"
+            radius="20"
+            placeholder="Soltá una foto del operador"
+            style="position: absolute; inset: 0; background: transparent;">
+          </image-slot>
+        </div>
+
+        <!-- floating workflow cards -->
+        <div class="float-card fc-1">
+          <div class="ic">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+          </div>
+          <div class="text">
+            <span class="lbl">Lead identificado</span>
+            <span class="val">Industrias Río Claro</span>
+          </div>
+        </div>
+
+        <div class="float-card fc-2">
+          <div class="ic sun">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 17l4-4 4 4 5-7 5 7"/></svg>
+          </div>
+          <div class="text">
+            <span class="lbl">Lead score</span>
+            <span class="val">87<span class="num">/100</span></span>
+          </div>
+        </div>
+
+        <div class="float-card fc-3">
+          <div class="ic">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 6h16v11H7l-3 3V6z"/><path d="M8 11h8M8 14h5"/></svg>
+          </div>
+          <div class="text">
+            <span class="lbl">Respuesta sugerida</span>
+            <span class="val">Borrador listo</span>
+          </div>
+          <span class="pulse"></span>
+        </div>
+
+        <div class="float-card fc-4">
+          <div class="ic">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M8 2v4M16 2v4"/></svg>
+          </div>
+          <div class="text">
+            <span class="lbl">Reunión agendada</span>
+            <span class="val">Jue 23 · 15:00</span>
+          </div>
+        </div>
+
+        <div class="float-card fc-5">
+          <div class="ic">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2v6M12 22v-6M2 12h6M22 12h-6M4.9 4.9l4.2 4.2M19.1 19.1l-4.2-4.2"/></svg>
+          </div>
+          <div class="text">
+            <span class="lbl">Sincronizando · CRM</span>
+            <span class="val">HubSpot · OK</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Trust strip -->
+    <div class="hero-trust">
+      <span class="label">Integra con el stack que ya usás</span>
+      <div class="logos">
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 5h18v14H3z"/><path d="M3 9h18"/></svg>Stripe</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16v16H4z"/><path d="M9 4v16M15 4v16"/></svg>Notion</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6h16v12H7l-3 3V6z"/></svg>WhatsApp</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="M3 8l9 6 9-6"/></svg>Gmail</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/></svg>HubSpot</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12c0-4 3-7 8-7s8 3 8 7-3 7-8 7c-2 0-3-.4-4-1l-3 1 1-3c-1-1-2-2-2-4z"/></svg>Meta Ads</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2v6M12 22v-6M2 12h6M22 12h-6"/></svg>Claude</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============= PROBLEM → PROMISE ============= -->
+<section class="problem" data-screen-label="03 Problema">
+  <div class="wrap">
+    <div class="kicker">Una nota antes de empezar</div>
+    <h2>
+      No diseñamos páginas.<br/>
+      <em>Diseñamos la forma en que un negocio funciona por dentro.</em>
+    </h2>
+    <p class="lede">Las pantallas, los embudos, los dashboards y las automatizaciones son la superficie visible de un sistema operativo más grande — el que decide cuánto tiempo se pierde cada semana, cuántos clientes se enfrían en una bandeja, cuántas decisiones se toman a ciegas.</p>
+  </div>
+</section>
+
+<!-- ============= STATS ============= -->
+<section class="stats" data-screen-label="04 Stats">
+  <div class="wrap">
+    <div class="stats-grid">
+      <div class="stat">
+        <div class="v">18<span class="u">hrs</span></div>
+        <div class="cap">recuperadas por semana en promedio.</div>
+      </div>
+      <div class="stat">
+        <div class="v">2.3<span class="u">×</span></div>
+        <div class="cap">más conversiones desde un embudo conectado.</div>
+      </div>
+      <div class="stat">
+        <div class="v">−64<span class="u">%</span></div>
+        <div class="cap">menos errores operativos en el primer mes.</div>
+      </div>
+      <div class="stat">
+        <div class="v">6<span class="u">sem</span></div>
+        <div class="cap">para tener el sistema funcionando en producción.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============= WORKFLOW ============= -->
+<section class="workflow" data-screen-label="05 Workflow">
+  <div class="wrap">
+
+    <div class="head">
+      <div class="kicker">El sistema, paso a paso</div>
+      <h2>Un solo flujo,<br/>de la primera<br/>conversación al cliente.</h2>
+      <p class="sub">El sistema entero está construido alrededor de un loop simple. Desde identificar un lead hasta cerrar el negocio, todo vive en una sola capa.</p>
+    </div>
+
+    <div class="workflow-track">
+
+      <div class="stage">
+        <div class="stage-visual">
+          <div class="grid-bg"></div>
+          <div class="mini-card s1-c1">
+            <span class="av"></span>
+            <div>
+              <div class="lbl">Lead encontrado</div>
+              <div class="val">Hugo Jenkinson</div>
+            </div>
+          </div>
+          <div class="mini-card s1-c2">
+            <span class="av b"></span>
+            <div>
+              <div class="lbl">Mobile validado</div>
+              <div class="val">+34 627 ···</div>
+            </div>
+          </div>
+          <div class="mini-card s1-c3">
+            <span class="av c"></span>
+            <div>
+              <div class="lbl">ICP match</div>
+              <div class="val">92<span style="color: var(--ink-3); font-weight: 400;">/100</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="stage-meta">
+          <div class="n">Etapa uno</div>
+          <h3>Encontramos a <em>las personas correctas</em>.</h3>
+          <p>Sistemas de adquisición que filtran por ICP e intención real. Sitios, anuncios, scoring y enriquecimiento — todo conectado al CRM desde el primer minuto.</p>
+        </div>
+      </div>
+
+      <div class="stage">
+        <div class="stage-visual">
+          <div class="grid-bg"></div>
+          <div class="timeline-line"></div>
+          <div class="mini-card s2-c1">
+            <span class="ic-tiny sun">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 17l4-4 4 4 5-7 5 7"/></svg>
+            </span>
+            <div>
+              <div class="lbl">Pipeline</div>
+              <div class="val">238 activos</div>
+            </div>
+          </div>
+          <div class="mini-card s2-c2">
+            <span class="ic-tiny">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+            </span>
+            <div>
+              <div class="lbl">Tiempo respuesta</div>
+              <div class="val">2.4 min</div>
+            </div>
+          </div>
+          <div class="mini-card s2-c3">
+            <span class="ic-tiny">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="8" height="8"/><rect x="13" y="3" width="8" height="8"/><rect x="3" y="13" width="8" height="8"/><rect x="13" y="13" width="8" height="8"/></svg>
+            </span>
+            <div>
+              <div class="lbl">Dashboard</div>
+              <div class="val">En vivo</div>
+            </div>
+          </div>
+        </div>
+        <div class="stage-meta">
+          <div class="n">Etapa dos</div>
+          <h3>Hacemos visible <em>lo que en realidad pasa</em>.</h3>
+          <p>Dashboards que conectan ventas, inventario y comunicación. Una sola vista del negocio — sin abrir cinco pestañas para entender cómo van los días.</p>
+        </div>
+      </div>
+
+      <div class="stage">
+        <div class="stage-visual">
+          <div class="grid-bg"></div>
+          <div class="mini-card s3-c1" style="flex-direction: column; align-items: flex-start; gap: 6px; min-width: 180px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span class="av b"></span>
+              <div>
+                <div class="lbl">Mensaje borrador</div>
+                <div class="val" style="font-size: 13px;">Industrias Río Claro</div>
+              </div>
+            </div>
+            <div style="font-size: 12px; color: var(--ink-2); line-height: 1.35; padding-top: 6px; border-top: 1px dashed rgba(0,0,0,0.08); width: 100%;">"Hola, gracias por tu mensaje sobre la <em class="serif" style="color: var(--ink);">línea industrial</em>..."</div>
+          </div>
+          <div class="mini-card s3-c2">
+            <span class="ic-tiny sun">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18"/></svg>
+            </span>
+            <div>
+              <div class="lbl">Reunión agendada</div>
+              <div class="val">Jue 23 · 15:00</div>
+            </div>
+          </div>
+        </div>
+        <div class="stage-meta">
+          <div class="n">Etapa tres</div>
+          <h3>Mantenemos <em>las conversaciones vivas</em>.</h3>
+          <p>Bandeja centralizada de WhatsApp, Email e Instagram con borradores asistidos por IA. Nada se enfría en una pestaña olvidada.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============= ENGINE / PILLARS ============= -->
+<section class="engine" data-screen-label="06 Engine">
+  <div class="wrap">
+
+    <div class="head">
+      <div class="kicker">El motor, tres oficios</div>
+      <h2>Todo bajo<br/>una sola capa.</h2>
+      <p class="sub">Cada proyecto activa uno, dos o los tres pilares. La marca los presenta como capas del mismo sistema, no como SKUs sueltos.</p>
+    </div>
+
+    <div class="pillars">
+
+      <article class="pillar">
+        <div class="num-line">
+          <span class="n">Pilar uno</span>
+          <span class="tag">Adquisición</span>
+        </div>
+        <h3>Cómo entran <em>los clientes</em> que valen la pena.</h3>
+        <p>Sitios, embudos publicitarios, lead generation, automatización de marketing. La capa pública que decide cuántas conversaciones reales empiezan cada semana.</p>
+        <div class="list">
+          <div class="li"><span>Sitio web + landing</span><span class="v">Live</span></div>
+          <div class="li"><span>Embudos publicitarios</span><span class="v">Meta · Google</span></div>
+          <div class="li"><span>Lead scoring</span><span class="v">Automatizado</span></div>
+          <div class="li"><span>CRM unificado</span><span class="v">HubSpot · Pipedrive</span></div>
+        </div>
+      </article>
+
+      <article class="pillar">
+        <div class="num-line">
+          <span class="n">Pilar dos</span>
+          <span class="tag">Operaciones</span>
+        </div>
+        <h3>Cómo se ve <em>lo que en realidad pasa</em>.</h3>
+        <p>Aplicaciones internas, dashboards, flujos de trabajo, integración con POS. El sistema nervioso que mantiene a la empresa funcionando con visibilidad.</p>
+        <div class="list">
+          <div class="li"><span>Dashboard operativo</span><span class="v">Live</span></div>
+          <div class="li"><span>Apps internas a medida</span><span class="v">A pedido</span></div>
+          <div class="li"><span>Integración POS</span><span class="v">Square · Lightspeed</span></div>
+          <div class="li"><span>Sincronización inventario</span><span class="v">Tiempo real</span></div>
+        </div>
+      </article>
+
+      <article class="pillar">
+        <div class="num-line">
+          <span class="n">Pilar tres</span>
+          <span class="tag">Comunicación</span>
+        </div>
+        <h3>Cómo se mantienen <em>las conversaciones vivas</em>.</h3>
+        <p>Mensajería, seguimiento automatizado, agente IA de soporte, comunicación centralizada entre equipos y canales.</p>
+        <div class="list">
+          <div class="li"><span>Bandeja unificada</span><span class="v">WhatsApp · Email · IG</span></div>
+          <div class="li"><span>Borradores IA</span><span class="v">Claude · GPT</span></div>
+          <div class="li"><span>Seguimiento automático</span><span class="v">Por canal</span></div>
+          <div class="li"><span>Notas y CRM sync</span><span class="v">Bidireccional</span></div>
+        </div>
+      </article>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- ============= TESTIMONIAL ============= -->
+<section class="testimonial" data-screen-label="07 Testimonial">
+  <div class="wrap">
+    <div class="inner">
+      <div class="kicker">Lo que dicen los clientes</div>
+      <blockquote>
+        "Nos ordenaron <em class="it">las operaciones enteras</em> en seis semanas. Dejamos de adivinar."
+      </blockquote>
+      <div class="attribution">
+        <div class="av">M</div>
+        <div class="meta">
+          <div class="name">Mariana Salgado</div>
+          <div class="role">Directora general · Industrias Río Claro</div>
+        </div>
+        <div class="verified">Cliente verificado · 2025</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============= USE CASES ============= -->
+<section class="usecases" data-screen-label="08 Use cases">
+  <div class="wrap">
+
+    <div class="head">
+      <div class="kicker">Para distintos tipos de negocio</div>
+      <h2>Construido para<br/>cómo operás hoy.</h2>
+      <p class="sub">Cada motion del negocio recibe el sistema en una configuración distinta. Cinco motions, una sola capa de tecnología.</p>
+    </div>
+
+    <div class="uc-grid">
+
+      <div class="uc uc-1 tall">
+        <div>
+          <div class="label" style="color: rgba(255,255,255,0.5);">Caso destacado</div>
+          <h3 style="color: var(--bg); margin-top: 20px;">Cómo Industrias Río Claro pasó de <em>cinco hojas de cálculo</em> a un solo dashboard.</h3>
+          <a class="arrow-link" href="#" style="margin-top: 28px;">Leer el caso completo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+        </div>
+        <div class="mini-chart">
+          <svg viewBox="0 0 360 120" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="uc1-g" x1="0" x2="0" y1="0" y2="1">
+                <stop offset="0%" stop-color="oklch(0.86 0.18 92 / .5)"/>
+                <stop offset="100%" stop-color="oklch(0.86 0.18 92 / 0)"/>
+              </linearGradient>
+            </defs>
+            <path d="M0 96 C 50 90, 90 84, 140 70 S 220 56, 260 44 S 320 22, 360 14 L 360 120 L 0 120 Z" fill="url(#uc1-g)"/>
+            <path d="M0 96 C 50 90, 90 84, 140 70 S 220 56, 260 44 S 320 22, 360 14" fill="none" stroke="oklch(0.86 0.18 92)" stroke-width="1.8" stroke-linecap="round"/>
+            <circle cx="360" cy="14" r="4" fill="oklch(0.86 0.18 92)"/>
+          </svg>
+        </div>
+        <div class="deco"></div>
+      </div>
+
+      <div class="uc uc-2">
+        <div class="label">Comercios físicos</div>
+        <div>
+          <h3>POS + dashboard,<br/><em>en una semana</em>.</h3>
+        </div>
+        <a class="arrow-link" href="#">Ver setup <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+      </div>
+
+      <div class="uc uc-3">
+        <div class="label">Servicios profesionales</div>
+        <div>
+          <h3>Lead-to-meeting <em>automatizado</em>.</h3>
+        </div>
+        <a class="arrow-link" href="#">Ver setup <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+      </div>
+
+      <div class="uc uc-4">
+        <div class="label">E-commerce</div>
+        <div>
+          <h3>Inventario, ads y CRM <em>conectados</em>.</h3>
+        </div>
+        <a class="arrow-link" href="#">Ver setup <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+      </div>
+
+      <div class="uc uc-5">
+        <div class="label">Restaurantes y hotelería</div>
+        <div>
+          <h3>Menú digital + reservas <em>en una capa</em>.</h3>
+        </div>
+        <a class="arrow-link" href="#">Ver setup <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- ============= CLOSING ============= -->
+<section class="closing" data-screen-label="09 Closing">
+  <div class="wrap">
+    <div class="closing-inner">
+      <h2>
+        Diseñamos<br/>
+        <em>la forma</em><br/>
+        en que un negocio<br/>
+        funciona por dentro.
+      </h2>
+      <p class="sub">Treinta minutos para entender cómo funcionan tus días. Si no te sirve, te decimos qué sí.</p>
+      <div class="ctas">
+        <a class="btn primary lg" href="#">Agendar diagnóstico <span class="arrow">→</span></a>
+        <a class="btn secondary lg" href="#">hello@pegasuspixels.com</a>
+        <span class="note">Sin tarjeta · sin compromiso</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============= FOOTER ============= -->
+<footer class="footer" data-screen-label="10 Footer">
+  <div class="wrap">
+
+    <div class="footer-grid">
+
+      <div class="brand-col">
+        <div class="brand"><span class="mark">P</span><span>Pegasus Pixels</span></div>
+        <p>Sistemas de tecnología para negocios reales. Por Alejandro, desde 2024.</p>
+      </div>
+
+      <div class="col">
+        <h5>Sistema</h5>
+        <ul>
+          <li><a href="#">Adquisición</a></li>
+          <li><a href="#">Operaciones</a></li>
+          <li><a href="#">Comunicación</a></li>
+          <li><a href="#">Diagnóstico</a></li>
+        </ul>
+      </div>
+
+      <div class="col">
+        <h5>Casos</h5>
+        <ul>
+          <li><a href="#">Industria</a></li>
+          <li><a href="#">Servicios</a></li>
+          <li><a href="#">E-commerce</a></li>
+          <li><a href="#">Hotelería</a></li>
+        </ul>
+      </div>
+
+      <div class="col">
+        <h5>Contacto</h5>
+        <ul>
+          <li><a href="#">hello@pegasuspixels.com</a></li>
+          <li><a href="#">+1 301 257 4500</a></li>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">LinkedIn</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="bottom">
+      <span>© 2026 Pegasus Pixels. Diseñado y operado por Alejandro.</span>
+      <span class="status">Todos los sistemas operativos</span>
+    </div>
+
+  </div>
+</footer>
+
+</body>
+</html>

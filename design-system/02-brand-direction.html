@@ -1,0 +1,988 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Pegasus Pixels — Dirección de marca</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+<style>
+  /* =========================================================
+     A calmer system. Fewer tokens, more breathing room.
+     Tokens use neutral names (no "frost"/"obsidian" theatre)
+     ========================================================= */
+  :root{
+    --bg:        #FAFAF7;
+    --bg-soft:   #F4F2EC;
+    --bg-warm:   #FBF9F2;
+    --paper:     #FFFFFF;
+    --rule:      #E4E0D4;
+    --rule-2:    #D2CDBC;
+    --ink:       #0A0A0B;
+    --ink-2:     #3D3B36;
+    --ink-3:     #6E6C66;
+    --ink-4:     #A09C90;
+    --sun:       oklch(0.86 0.16 92);
+    --sun-dim:   oklch(0.74 0.14 90);
+    --sun-glow:  oklch(0.86 0.18 92 / .38);
+
+    /* gradient text — four warm hues */
+    --gt-1: 42 90% 55%;
+    --gt-2: 28 85% 60%;
+    --gt-3: 18 70% 55%;
+    --gt-4: 50 30% 88%;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  html, body{ margin: 0; padding: 0; background: var(--bg); color: var(--ink); }
+  body{
+    font-family: "Geist", ui-sans-serif, system-ui, sans-serif;
+    font-feature-settings: "ss01","ss02","cv11";
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    font-size: 17px;
+    line-height: 1.55;
+    overflow-x: hidden;
+  }
+  ::selection{ background: var(--sun); color: var(--ink); }
+
+  /* =========================================================
+     Typography — sentence/title case, editorial scale
+     ========================================================= */
+  h1, h2, h3, h4{ margin: 0; font-weight: 400; letter-spacing: -0.025em; color: var(--ink); }
+  h1{ font-size: clamp(48px, 7.2vw, 132px); line-height: 0.94; letter-spacing: -0.035em; }
+  h2{ font-size: clamp(36px, 4.8vw, 84px); line-height: 0.98; letter-spacing: -0.03em; }
+  h3{ font-size: clamp(24px, 2.4vw, 40px); line-height: 1.05; letter-spacing: -0.02em; font-weight: 500; }
+  h4{ font-size: clamp(18px, 1.4vw, 22px); line-height: 1.25; letter-spacing: -0.01em; font-weight: 500; }
+  p{ color: var(--ink-2); max-width: 60ch; margin: 0; text-wrap: pretty; }
+  p.lead{ font-size: clamp(19px, 1.5vw, 24px); line-height: 1.45; max-width: 32ch; color: var(--ink); letter-spacing: -0.005em; }
+  p + p{ margin-top: 1em; }
+  em.it{ font-family: "Instrument Serif", serif; font-style: italic; font-weight: 400; letter-spacing: -0.015em; color: var(--ink); }
+  .serif{ font-family: "Instrument Serif", serif; font-style: italic; font-weight: 400; letter-spacing: -0.015em; }
+
+  /* Only used 3 times in the whole document, deliberately */
+  .mono{ font-family: "Geist Mono", ui-monospace, monospace; font-size: 12px; letter-spacing: 0; color: var(--ink-3); }
+
+  a{ color: inherit; text-decoration: none; }
+
+  /* =========================================================
+     Layout primitives
+     ========================================================= */
+  .wrap{ max-width: 1320px; margin: 0 auto; padding: 0 clamp(24px, 5vw, 96px); }
+  .col-narrow{ max-width: 760px; }
+  .col-narrower{ max-width: 580px; }
+
+  section{ padding: clamp(120px, 14vw, 200px) 0; position: relative; }
+  section.tight{ padding: clamp(72px, 8vw, 120px) 0; }
+  hr.rule{ border: 0; height: 1px; background: var(--rule); margin: 0; }
+
+  /* =========================================================
+     Top bar — minimal, almost invisible
+     ========================================================= */
+  .topbar{
+    position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+    padding: 20px clamp(24px, 5vw, 96px);
+    display: flex; justify-content: space-between; align-items: center;
+    backdrop-filter: blur(14px) saturate(140%);
+    background: rgba(250,250,247,0.7);
+    transition: opacity .4s ease;
+  }
+  .topbar .brand{ display: flex; align-items: center; gap: 12px; font-size: 15px; font-weight: 500; }
+  .topbar .brand .mark{
+    width: 22px; height: 22px; border-radius: 5px;
+    background: linear-gradient(135deg, #0A0A0B 0%, #2A2A2D 100%);
+    color: var(--bg);
+    display: flex; align-items: center; justify-content: center;
+    font-family: "Instrument Serif", serif; font-style: italic; font-size: 15px;
+    line-height: 1;
+  }
+  .topbar .meta{ font-size: 13px; color: var(--ink-3); letter-spacing: -0.005em; }
+
+  /* =========================================================
+     Cover — quiet, off-center, generous whitespace
+     ========================================================= */
+  .cover{
+    min-height: 100vh;
+    padding-top: 22vh;
+    padding-bottom: 8vh;
+    position: relative;
+    overflow: hidden;
+    background:
+      radial-gradient(1500px 1100px at -10% 110%, oklch(0.92 0.20 92 / .95), transparent 65%),
+      radial-gradient(1100px 900px at 30% 60%, oklch(0.94 0.18 90 / .55), transparent 60%),
+      radial-gradient(1100px 900px at 110% 110%, oklch(0.99 0.01 90 / .95), transparent 60%),
+      radial-gradient(700px 600px at 100% -10%, oklch(0.98 0.02 90 / .5), transparent 60%),
+      linear-gradient(180deg, oklch(0.94 0.10 90) 0%, oklch(0.96 0.08 90) 60%, oklch(0.97 0.05 90) 100%);
+  }
+  .cover h1{
+    max-width: 16ch;
+    margin-left: -0.06em; /* optical alignment, breaks grid intentionally */
+  }
+  .cover h1 .indent{ display: inline-block; padding-left: 1.4em; }
+  .cover h1 .indent-2{ display: inline-block; padding-left: 2.4em; }
+  .cover .sub{
+    margin-top: clamp(48px, 6vw, 96px);
+    display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 6vw, 96px);
+    align-items: end;
+  }
+  .cover .sub p{ max-width: 38ch; }
+  .cover .meta-stack{
+    display: flex; flex-direction: column; gap: 6px;
+    font-size: 13.5px; color: var(--ink-3);
+    text-align: right;
+  }
+  .cover .meta-stack b{ color: var(--ink); font-weight: 500; }
+  .cover .meta-stack i{ font-style: normal; }
+  @media (max-width: 720px){
+    .cover .sub{ grid-template-columns: 1fr; gap: 32px; }
+    .cover .meta-stack{ text-align: left; }
+  }
+
+  /* a single quiet floor caption, no marquee */
+  .cover .floor{
+    margin-top: clamp(72px, 10vw, 140px);
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding-top: 24px; border-top: 1px solid var(--rule);
+    font-size: 13px; color: var(--ink-3);
+  }
+  .cover .floor span:last-child{ color: var(--ink); }
+
+  /* =========================================================
+     Section: Philosophy — one big paragraph, that's it
+     ========================================================= */
+  .philosophy{
+    background: var(--bg);
+  }
+  .philosophy .content{
+    max-width: 820px;
+    margin: 0 auto;
+  }
+  .philosophy .kicker{
+    font-size: 14px; color: var(--ink-3); margin-bottom: 28px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .philosophy .kicker::before{
+    content: ""; width: 28px; height: 1px; background: var(--ink-4);
+  }
+  .philosophy .body{
+    font-size: clamp(22px, 2.3vw, 32px);
+    line-height: 1.35;
+    letter-spacing: -0.012em;
+    color: var(--ink);
+    max-width: none;
+  }
+  .philosophy .body em{ color: var(--ink-3); font-style: normal; }
+
+  /* =========================================================
+     Section: Positioning — asymmetric two-stage editorial
+     ========================================================= */
+  .positioning{
+    background:
+      linear-gradient(180deg, var(--bg) 0%, var(--bg-soft) 100%);
+  }
+  .positioning .head{ max-width: 720px; margin-bottom: clamp(64px, 8vw, 120px); }
+  .positioning .head h2{ max-width: 14ch; }
+  .positioning .head p{ margin-top: 24px; max-width: 50ch; }
+
+  .stage{
+    display: grid;
+    grid-template-columns: 1fr 1.3fr;
+    gap: clamp(48px, 8vw, 120px);
+    align-items: start;
+  }
+  .stage .before{
+    padding-top: 32px;
+    border-top: 1px solid var(--rule);
+  }
+  .stage .before .label{ font-size: 13px; color: var(--ink-3); margin-bottom: 20px; }
+  .stage .before h3{
+    color: var(--ink-3);
+    font-weight: 400;
+    text-decoration: line-through;
+    text-decoration-color: rgba(120,110,80,0.4);
+    text-decoration-thickness: 1px;
+  }
+  .stage .before p{ margin-top: 16px; max-width: 42ch; font-size: 15.5px; }
+
+  .stage .after{
+    padding: 48px clamp(28px, 4vw, 56px);
+    border: 1px solid var(--rule-2);
+    border-radius: 4px;
+    background: var(--paper);
+    transform: translateY(-12px);
+  }
+  .stage .after .label{ font-size: 13px; color: var(--ink-3); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+  .stage .after .label::after{
+    content: ""; width: 7px; height: 7px; border-radius: 50%;
+    background: var(--sun);
+    box-shadow: 0 0 10px var(--sun-glow);
+  }
+  .stage .after h3{ font-weight: 500; letter-spacing: -0.025em; }
+  .stage .after p{ margin-top: 16px; max-width: 42ch; font-size: 16px; }
+
+  @media (max-width: 900px){
+    .stage{ grid-template-columns: 1fr; gap: 40px; }
+    .stage .after{ transform: none; }
+  }
+
+  /* =========================================================
+     Section: Pillars — three editorial passages, not cards
+     ========================================================= */
+  .pillars{ background: var(--bg); }
+  .pillars .head{ max-width: 720px; margin-bottom: clamp(96px, 12vw, 160px); }
+  .pillars .head h2{ max-width: 12ch; }
+  .pillars .head p{ margin-top: 24px; max-width: 50ch; }
+
+  .pillar{
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: clamp(40px, 8vw, 120px);
+    padding: clamp(56px, 8vw, 96px) 0;
+    border-top: 1px solid var(--rule);
+  }
+  .pillar:last-child{ border-bottom: 1px solid var(--rule); }
+  .pillar .num{ font-size: 15px; color: var(--ink-3); letter-spacing: -0.005em; }
+  .pillar .num b{ display: block; color: var(--ink); font-weight: 500; margin-top: 4px; }
+  .pillar .right{ max-width: 720px; }
+  .pillar h3{ font-size: clamp(28px, 3vw, 48px); line-height: 1.0; letter-spacing: -0.025em; font-weight: 400; }
+  .pillar h3 em{ color: var(--ink-3); font-style: normal; }
+  .pillar p{ margin-top: 24px; max-width: 56ch; font-size: 17px; }
+  .pillar .list{
+    margin-top: 36px;
+    display: flex; flex-wrap: wrap; gap: 6px 12px;
+    color: var(--ink-3); font-size: 14.5px;
+  }
+  .pillar .list span{ position: relative; padding-right: 12px; }
+  .pillar .list span + span::before{
+    content: ""; position: absolute; left: -8px; top: 7px;
+    width: 3px; height: 3px; border-radius: 50%; background: var(--ink-4);
+  }
+  /* offset pillar 2 — break grid alignment */
+  .pillar:nth-child(3){ padding-left: clamp(0px, 5vw, 80px); }
+  .pillar:nth-child(4){ padding-right: clamp(0px, 5vw, 80px); }
+
+  @media (max-width: 900px){
+    .pillar{ grid-template-columns: 1fr; gap: 16px; }
+    .pillar:nth-child(3), .pillar:nth-child(4){ padding-left: 0; padding-right: 0; }
+  }
+
+  /* =========================================================
+     Section: Color — pair, not grid. One feature swatch large.
+     ========================================================= */
+  .color{
+    background: linear-gradient(180deg, var(--bg-soft) 0%, var(--bg-warm) 100%);
+  }
+  .color .top{
+    display: grid; grid-template-columns: 1fr 1fr; gap: clamp(40px, 8vw, 120px);
+    align-items: end;
+    margin-bottom: clamp(64px, 8vw, 120px);
+  }
+  .color .top h2{ max-width: 12ch; }
+  .color .top p{ max-width: 38ch; }
+
+  .color .palette{
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1fr;
+    gap: clamp(8px, 1vw, 16px);
+    align-items: stretch;
+  }
+  .swatch{
+    aspect-ratio: 4 / 5;
+    border-radius: 6px;
+    padding: 24px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(0,0,0,0.06);
+  }
+  .swatch.feature{
+    aspect-ratio: 4 / 6;
+    background:
+      radial-gradient(circle at 75% 25%, oklch(0.94 0.14 90 / .85), transparent 60%),
+      var(--sun);
+    color: var(--ink);
+  }
+  .swatch .name{ font-size: 18px; font-weight: 500; letter-spacing: -0.01em; }
+  .swatch .hex{ font-size: 13px; color: rgba(0,0,0,0.55); margin-top: 2px; }
+  .swatch.feature .hex{ color: rgba(0,0,0,0.7); }
+  .swatch .use{ font-size: 13.5px; color: rgba(0,0,0,0.65); max-width: 22ch; }
+  .swatch.dark .name{ color: var(--bg); }
+  .swatch.dark .hex{ color: rgba(255,255,255,0.6); }
+  .swatch.dark .use{ color: rgba(255,255,255,0.7); }
+
+  .color .row-2{
+    margin-top: 16px;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(8px, 1vw, 16px);
+  }
+  .color .row-2 .swatch{ aspect-ratio: 5 / 3; }
+  @media (max-width: 800px){
+    .color .top{ grid-template-columns: 1fr; }
+    .color .palette{ grid-template-columns: 1fr 1fr; }
+    .color .palette .swatch.feature{ grid-column: 1 / -1; aspect-ratio: 5 / 3; }
+    .color .row-2{ grid-template-columns: 1fr 1fr; }
+  }
+
+  /* =========================================================
+     Section: Type — examples in rhythm, varied indents
+     ========================================================= */
+  .type{ background: var(--bg); }
+  .type .head{ max-width: 720px; margin-bottom: clamp(64px, 10vw, 140px); }
+  .type .head h2{ max-width: 12ch; }
+  .type .head p{ margin-top: 24px; max-width: 50ch; }
+
+  .type-row{
+    padding: clamp(40px, 6vw, 72px) 0;
+    border-top: 1px solid var(--rule);
+    display: grid; grid-template-columns: 1fr; gap: 20px;
+  }
+  .type-row:last-child{ border-bottom: 1px solid var(--rule); }
+  .type-row .name{
+    font-size: 14px; color: var(--ink-3); letter-spacing: -0.005em;
+  }
+  .type-row .name b{ color: var(--ink); font-weight: 500; }
+  .type-row .sample{ color: var(--ink); }
+
+  .type-row.indent-1 .sample{ padding-left: clamp(0px, 6vw, 96px); }
+  .type-row.indent-2 .sample{ padding-left: clamp(0px, 12vw, 200px); }
+  .type-row.indent-3 .sample{ padding-left: clamp(0px, 18vw, 320px); }
+
+  .ts-display{ font-size: clamp(56px, 8vw, 120px); line-height: 0.96; letter-spacing: -0.035em; font-weight: 400; max-width: 14ch; }
+  .ts-h2{ font-size: clamp(36px, 4.4vw, 64px); line-height: 1.0; letter-spacing: -0.03em; font-weight: 500; max-width: 16ch; }
+  .ts-h3{ font-size: 28px; line-height: 1.1; letter-spacing: -0.015em; font-weight: 500; }
+  .ts-body{ font-size: 19px; line-height: 1.5; color: var(--ink-2); max-width: 58ch; }
+  .ts-detail{ font-size: 14px; color: var(--ink-3); }
+
+  /* =========================================================
+     Section: Gradient text demo
+     ========================================================= */
+  @keyframes gradient-border {
+    0%, 100% { border-radius: 37% 29% 27% 27% / 28% 25% 41% 37%; }
+    25%      { border-radius: 47% 29% 39% 49% / 61% 19% 66% 26%; }
+    50%      { border-radius: 57% 23% 47% 72% / 63% 17% 66% 33%; }
+    75%      { border-radius: 28% 49% 29% 100% / 93% 20% 64% 25%; }
+  }
+  @keyframes gt-1 { 0%,100% { top: 0; right: 0; } 50% { top: 50%; right: 25%; } 75% { top: 25%; right: 50%; } }
+  @keyframes gt-2 { 0%,100% { top: 0; left: 0; } 60% { top: 75%; left: 25%; } 85% { top: 50%; left: 50%; } }
+  @keyframes gt-3 { 0%,100% { bottom: 0; left: 0; } 40% { bottom: 50%; left: 25%; } 65% { bottom: 25%; left: 50%; } }
+  @keyframes gt-4 { 0%,100% { bottom: 0; right: 0; } 50% { bottom: 25%; right: 40%; } 90% { bottom: 50%; right: 25%; } }
+
+  .gtext{
+    position: relative;
+    display: inline-flex;
+    overflow: hidden;
+    background: #FFFFFF;
+    padding: 0 0.06em;
+    border-radius: 6px;
+    isolation: isolate;
+    box-shadow:
+      inset 0 0 0 1px rgba(160,130,40,0.10),
+      0 1px 0 rgba(255,255,255,0.6);
+    line-height: 0.94;
+  }
+  .gtext .overlay{ position: absolute; inset: 0; pointer-events: none; mix-blend-mode: lighten; }
+  .gtext .blob{
+    position: absolute;
+    width: 22vw; height: 22vw;
+    max-width: 280px; max-height: 280px;
+    filter: blur(24px);
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    animation-duration: 8s, 14s;
+    animation-timing-function: ease-in-out, ease-in-out;
+    animation-iteration-count: infinite, infinite;
+    animation-direction: normal, alternate;
+  }
+  .gtext .b1{ top: -50%; background: hsl(var(--gt-1)); animation-name: gradient-border, gt-1; }
+  .gtext .b2{ top: 0; right: 0; background: hsl(var(--gt-2)); animation-name: gradient-border, gt-2; }
+  .gtext .b3{ bottom: 0; left: 0; background: hsl(var(--gt-3)); animation-name: gradient-border, gt-3; }
+  .gtext .b4{ bottom: -50%; right: 0; background: hsl(var(--gt-4)); animation-name: gradient-border, gt-4; }
+
+  .gtext-section{
+    background: var(--bg-soft);
+  }
+  .gtext-section .demo{
+    text-align: center;
+    padding: clamp(64px, 10vw, 140px) 0;
+  }
+  .gtext-section .demo h2{
+    font-size: clamp(48px, 7vw, 112px);
+    max-width: none;
+  }
+  .gtext-section .below{
+    margin-top: clamp(56px, 7vw, 96px);
+    display: grid; grid-template-columns: 1fr 1.4fr; gap: clamp(40px, 6vw, 96px);
+    align-items: start;
+    padding-top: clamp(48px, 6vw, 80px);
+    border-top: 1px solid var(--rule);
+  }
+  .gtext-section .below p{ max-width: 50ch; font-size: 16px; }
+  .gtext-section .rules{
+    display: grid; gap: 24px;
+  }
+  .gtext-section .rules .r{
+    display: grid; grid-template-columns: 32px 1fr; gap: 20px; align-items: baseline;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .gtext-section .rules .r:last-child{ border-bottom: 0; padding-bottom: 0; }
+  .gtext-section .rules .r .n{ font-size: 14px; color: var(--ink-3); }
+  .gtext-section .rules .r h4{ font-weight: 500; }
+  .gtext-section .rules .r p{ margin-top: 6px; font-size: 15px; }
+  @media (max-width: 800px){
+    .gtext-section .below{ grid-template-columns: 1fr; }
+  }
+
+  /* =========================================================
+     Section: Buttons — minimal, just the primary surfaces
+     ========================================================= */
+  .btn{
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 13px 22px;
+    border-radius: 999px;
+    font-family: "Geist", sans-serif; font-size: 15px; font-weight: 500;
+    cursor: pointer;
+    transition: transform .25s cubic-bezier(0.22, 1, 0.36, 1), background .2s ease, border-color .2s ease;
+    border: 1px solid transparent;
+  }
+  .btn.primary{
+    background: var(--ink); color: var(--bg);
+    box-shadow: 0 1px 0 rgba(255,255,255,0.15) inset, 0 6px 20px rgba(10,10,11,0.10);
+  }
+  .btn.primary:hover{ transform: translateY(-1px); background: #1A1A1F; }
+  .btn.secondary{
+    background: transparent; color: var(--ink);
+    border-color: var(--rule-2);
+  }
+  .btn.secondary:hover{ background: rgba(0,0,0,0.03); }
+  .btn .arrow{ display: inline-block; transition: transform .25s ease; }
+  .btn:hover .arrow{ transform: translateX(3px); }
+
+  .interfaces{ background: var(--bg); }
+  .interfaces .head{ max-width: 720px; margin-bottom: clamp(64px, 8vw, 120px); }
+  .interfaces .head h2{ max-width: 14ch; }
+  .interfaces .head p{ margin-top: 24px; max-width: 52ch; }
+
+  .surfaces{
+    display: grid; grid-template-columns: 1fr 1fr; gap: clamp(24px, 4vw, 56px);
+    align-items: start;
+  }
+  .surface{
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+    padding: 48px;
+    background: var(--paper);
+    min-height: 320px;
+    display: flex; flex-direction: column; gap: 28px;
+    box-shadow: 0 20px 50px -30px rgba(80,70,30,0.12);
+  }
+  .surface .label{ font-size: 14px; color: var(--ink-3); }
+  .surface h4{ font-weight: 500; max-width: 16ch; }
+  .surface .ctas{ display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-top: auto; }
+  .surface .ctas .note{ font-size: 13px; color: var(--ink-4); margin-left: 8px; }
+
+  .surface.preview{
+    padding: 0;
+    overflow: hidden;
+    gap: 0;
+  }
+  .preview-inner{
+    padding: 28px;
+    display: flex; flex-direction: column; gap: 20px;
+    flex: 1;
+  }
+  .preview-inner .row1{
+    display: flex; justify-content: space-between; align-items: baseline;
+  }
+  .preview-inner .row1 .l{ font-size: 14px; color: var(--ink); font-weight: 500; }
+  .preview-inner .row1 .r{ font-size: 12.5px; color: var(--ink-3); display: inline-flex; align-items: center; gap: 8px; }
+  .preview-inner .row1 .r .dot{ width: 6px; height: 6px; border-radius: 50%; background: var(--sun); box-shadow: 0 0 8px var(--sun-glow); }
+
+  .preview-stat{
+    display: grid; grid-template-columns: 1fr 1px 1fr; gap: 24px;
+    padding-block: 6px;
+  }
+  .preview-stat .sep{ background: var(--rule); }
+  .preview-stat .k{ font-size: 13px; color: var(--ink-3); margin-bottom: 6px; }
+  .preview-stat .v{ font-size: 36px; letter-spacing: -0.025em; font-weight: 500; }
+  .preview-stat .v .u{ font-size: 16px; color: var(--ink-3); margin-left: 3px; }
+
+  .preview-chart{
+    margin-top: auto;
+    height: 100px;
+  }
+  .preview-chart svg{ width: 100%; height: 100%; display: block; }
+
+  @media (max-width: 800px){
+    .surfaces{ grid-template-columns: 1fr; }
+  }
+
+  /* =========================================================
+     Section: Voice — written, not yes/no boxes
+     ========================================================= */
+  .voice{ background: linear-gradient(180deg, var(--bg) 0%, var(--bg-soft) 100%); }
+  .voice .head{ max-width: 720px; margin-bottom: clamp(64px, 8vw, 120px); }
+  .voice .head h2{ max-width: 14ch; }
+  .voice .head p{ margin-top: 24px; max-width: 50ch; }
+
+  .voice-body{
+    display: grid; grid-template-columns: 1fr 1fr; gap: clamp(48px, 8vw, 120px);
+  }
+  .voice-col h4{ font-weight: 500; margin-bottom: 32px; }
+  .voice-col h4 .marker{ color: var(--ink-3); margin-right: 12px; }
+  .voice-col.yes h4 .marker{ color: oklch(0.55 0.12 150); }
+
+  .voice-col blockquote{
+    margin: 0 0 28px 0;
+    padding: 0;
+    border: 0;
+    font-size: clamp(20px, 1.8vw, 26px);
+    line-height: 1.32;
+    letter-spacing: -0.012em;
+    color: var(--ink);
+    font-weight: 400;
+  }
+  .voice-col.no blockquote{
+    color: var(--ink-3);
+    font-style: italic;
+  }
+  .voice-col .src{
+    margin-top: 8px;
+    font-size: 14px;
+    color: var(--ink-3);
+  }
+
+  @media (max-width: 800px){
+    .voice-body{ grid-template-columns: 1fr; gap: 56px; }
+  }
+
+  /* =========================================================
+     Section: Closing — one calm line
+     ========================================================= */
+  .closing{
+    background: var(--bg);
+    padding: clamp(140px, 18vw, 240px) 0 clamp(80px, 10vw, 140px);
+  }
+  .closing .big{
+    font-size: clamp(40px, 5.4vw, 88px);
+    line-height: 1.04;
+    letter-spacing: -0.03em;
+    max-width: 18ch;
+    font-weight: 400;
+  }
+  .closing .big em{ font-family: "Instrument Serif", serif; font-style: italic; font-weight: 400; letter-spacing: -0.02em; }
+  .closing .foot{
+    margin-top: clamp(80px, 12vw, 160px);
+    padding-top: 24px;
+    border-top: 1px solid var(--rule);
+    display: grid; grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 32px;
+  }
+  .closing .foot .k{ display: block; font-size: 13px; color: var(--ink-3); margin-bottom: 6px; }
+  .closing .foot .v{ font-size: 14.5px; color: var(--ink); }
+  @media (max-width: 800px){ .closing .foot{ grid-template-columns: 1fr 1fr; } }
+
+</style>
+</head>
+<body>
+
+<!-- ============= TOP BAR ============= -->
+<header class="topbar">
+  <a class="brand" href="#"><span class="mark">P</span><span>Pegasus Pixels</span></a>
+  <span class="meta">Dirección de marca, edición Light · 2026</span>
+</header>
+
+<!-- ============= COVER ============= -->
+<section class="cover" data-screen-label="01 Portada">
+  <div class="wrap">
+
+    <h1>
+      Construimos<br/>
+      <span class="indent">sistemas</span><br/>
+      <span class="indent-2">que <em class="it">operan</em></span><br/>
+      negocios reales.
+    </h1>
+
+    <div class="sub">
+      <p class="lead">Una guía de dirección visual para evolucionar Pegasus Pixels de estudio web a operador tecnológico de negocios.</p>
+      <div class="meta-stack">
+        <span><b>Pegasus Pixels</b></span>
+        <span>Por Alejandro</span>
+        <span>Versión 0.2, edición Light</span>
+      </div>
+    </div>
+
+    <div class="floor">
+      <span>Dirección creativa</span>
+      <span>Para el equipo y los clientes que la habitan.</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============= PHILOSOPHY ============= -->
+<section class="philosophy" data-screen-label="02 Filosofía">
+  <div class="wrap">
+    <div class="content">
+      <div class="kicker">Una nota antes de empezar</div>
+      <p class="body">
+        No diseñamos páginas. Diseñamos la forma en que un negocio funciona por dentro. Las pantallas, los embudos, los dashboards y las automatizaciones son la <em class="it">superficie visible</em> de un sistema operativo más grande — el que decide cuánto tiempo se pierde cada semana, cuántos clientes se enfrían en una bandeja, cuántas decisiones se toman a ciegas. <em>Esa es la materia.</em> Lo demás es vitrina.
+      </p>
+    </div>
+  </div>
+</section>
+
+<hr class="rule" />
+
+<!-- ============= POSITIONING ============= -->
+<section class="positioning" data-screen-label="03 Posicionamiento">
+  <div class="wrap">
+
+    <div class="head">
+      <h2>Un cambio<br/>de oficio.</h2>
+      <p>De ser el estudio que <em class="it">repara sitios</em> a ser el operador que diseña la capa de tecnología sobre la que un negocio funciona.</p>
+    </div>
+
+    <div class="stage">
+      <div class="before">
+        <div class="label">Antes · 2024–25</div>
+        <h3>Estudio de diseño y reparación web.</h3>
+        <p>Sitios, contenido, automatizaciones sueltas, soporte de POS. Una colección de servicios que conviven en una tarjeta de presentación.</p>
+      </div>
+
+      <div class="after">
+        <div class="label">Hoy</div>
+        <h3>Un operador tecnológico para negocios reales.</h3>
+        <p>Sistemas que conectan adquisición, operaciones y comunicación. El sitio web pasa a ser <em class="it">una pieza</em> dentro de un organismo más grande — no el producto, sino su entrada.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============= PILLARS ============= -->
+<section class="pillars" data-screen-label="04 Pilares">
+  <div class="wrap">
+
+    <div class="head">
+      <h2>Tres oficios,<br/>un solo organismo.</h2>
+      <p>Toda la oferta cabe bajo tres pilares operacionales. Un proyecto puede activar uno, dos o los tres — la marca los presenta como capas del mismo sistema, nunca como SKUs sueltos.</p>
+    </div>
+
+    <article class="pillar">
+      <div class="num">Uno<b>Adquisición</b></div>
+      <div class="right">
+        <h3>Cómo entran <em>los clientes</em> que valen la pena.</h3>
+        <p>Sitios, embudos publicitarios, lead generation, automatización de marketing. Es la capa pública — la que decide cuántas conversaciones reales empiezan cada semana y cuánto cuesta cada una.</p>
+        <div class="list"><span>Web</span><span>Anuncios</span><span>SEO</span><span>CRM</span><span>Lead scoring</span></div>
+      </div>
+    </article>
+
+    <article class="pillar">
+      <div class="num">Dos<b>Operaciones</b></div>
+      <div class="right">
+        <h3>Cómo se ve lo que <em>en realidad pasa</em>.</h3>
+        <p>Aplicaciones internas, dashboards, flujos de trabajo, procesos. El sistema nervioso del negocio — el que decide si las decisiones se toman con datos o por instinto, y cuántas horas a la semana se recuperan.</p>
+        <div class="list"><span>Dashboards</span><span>Apps internas</span><span>POS</span><span>Inventario</span><span>API</span></div>
+      </div>
+    </article>
+
+    <article class="pillar">
+      <div class="num">Tres<b>Comunicación</b></div>
+      <div class="right">
+        <h3>Cómo se mantienen <em>las conversaciones vivas</em>.</h3>
+        <p>Mensajería, seguimiento automatizado, agentes de soporte, comunicación centralizada. La capa donde un cliente decide quedarse o irse — y donde un equipo deja de duplicar trabajo entre WhatsApp, mail y notas.</p>
+        <div class="list"><span>WhatsApp</span><span>Email</span><span>IG · DMs</span><span>Agentes IA</span><span>Bandeja unificada</span></div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ============= COLOR ============= -->
+<section class="color" data-screen-label="05 Color">
+  <div class="wrap">
+
+    <div class="top">
+      <div>
+        <h2>Lino, tinta,<br/>un solo destello.</h2>
+      </div>
+      <p>Una paleta que se comporta como un papel bien elegido. La base es casi neutra — el color aparece una sola vez, donde el sistema tiene algo vivo que decir.</p>
+    </div>
+
+    <div class="palette">
+      <div class="swatch feature">
+        <div>
+          <div class="name">Sun</div>
+          <div class="hex">oklch(0.86 0.16 92)</div>
+        </div>
+        <div class="use">El único acento. Aparece donde algo está vivo, en sincronía o en foco.</div>
+      </div>
+      <div class="swatch" style="background: var(--paper);">
+        <div>
+          <div class="name">Bone</div>
+          <div class="hex">#FFFFFF</div>
+        </div>
+        <div class="use">Tarjetas y superficies elevadas.</div>
+      </div>
+      <div class="swatch" style="background: var(--bg);">
+        <div>
+          <div class="name">Linen</div>
+          <div class="hex">#FAFAF7</div>
+        </div>
+        <div class="use">El papel sobre el que vive todo.</div>
+      </div>
+      <div class="swatch dark" style="background: var(--ink);">
+        <div>
+          <div class="name">Ink</div>
+          <div class="hex" style="color: rgba(255,255,255,0.5);">#0A0A0B</div>
+        </div>
+        <div class="use">Texto, primarios, contraste editorial.</div>
+      </div>
+    </div>
+
+    <div class="row-2">
+      <div class="swatch" style="background: var(--bg-soft);">
+        <div>
+          <div class="name">Linen 100</div>
+          <div class="hex">#F4F2EC</div>
+        </div>
+        <div class="use">Secciones alternas, separación por temperatura.</div>
+      </div>
+      <div class="swatch" style="background: var(--rule);">
+        <div>
+          <div class="name">Sand</div>
+          <div class="hex">#E4E0D4</div>
+        </div>
+        <div class="use">Líneas, bordes hairline.</div>
+      </div>
+      <div class="swatch" style="background: var(--ink-3); color: var(--bg);">
+        <div>
+          <div class="name" style="color: var(--bg);">Ash</div>
+          <div class="hex" style="color: rgba(255,255,255,0.55);">#6E6C66</div>
+        </div>
+        <div class="use" style="color: rgba(255,255,255,0.75);">Texto secundario, captions, metadata.</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============= TYPE ============= -->
+<section class="type" data-screen-label="06 Tipografía">
+  <div class="wrap">
+
+    <div class="head">
+      <h2>Una sola voz,<br/>sentence case.</h2>
+      <p>Geist para todo, Instrument Serif italic como acento humano sobre una o dos palabras. Las mayúsculas y la monoespaciada se reservan para metadata real — no para decorar.</p>
+    </div>
+
+    <div class="type-row">
+      <div class="name"><b>Display</b> · Geist Regular · −0.035em · line-height 0.94</div>
+      <div class="sample ts-display">Sistemas que operan<br/>tu negocio.</div>
+    </div>
+
+    <div class="type-row indent-1">
+      <div class="name"><b>Heading</b> · Geist Medium · −0.03em · line-height 1.0</div>
+      <div class="sample ts-h2">De caos operativo a visibilidad real.</div>
+    </div>
+
+    <div class="type-row indent-2">
+      <div class="name"><b>Subhead</b> · Geist Medium · 28px · −0.015em</div>
+      <div class="sample ts-h3">Tres pilares, conectados como un sistema.</div>
+    </div>
+
+    <div class="type-row indent-1">
+      <div class="name"><b>Body</b> · Geist Regular · 19px · line-height 1.5</div>
+      <div class="sample ts-body">Diseñamos infraestructura digital para negocios reales. El sitio web es la entrada al sistema, no el sistema mismo — y eso cambia todo lo que decidimos a partir de ahí.</div>
+    </div>
+
+    <div class="type-row indent-3">
+      <div class="name"><b>Accent</b> · Instrument Serif Italic · uso quirúrgico</div>
+      <div class="sample ts-h3 serif">tecnología que se siente humana</div>
+    </div>
+
+    <div class="type-row">
+      <div class="name"><b>Detail</b> · Geist · 14px · color Ash · sentence case</div>
+      <div class="sample ts-detail">Pegasus · Operations — vista semanal, actualizado hace dos minutos.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============= GRADIENT TEXT ============= -->
+<section class="gtext-section" data-screen-label="07 Gradient Text">
+  <div class="wrap">
+
+    <div class="demo">
+      <h2>Una palabra<br/>que <span class="gtext">respira<span class="overlay" aria-hidden="true"><span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span><span class="blob b4"></span></span></span>.</h2>
+    </div>
+
+    <div class="below">
+      <p>Una técnica reservada para un solo verbo emocional dentro del titular principal. Cuatro blobs cálidos animados detrás del texto, en blend overlay sobre blanco. Reemplaza al italic de Instrument Serif cuando el momento lo pide. Nunca se acumulan los dos acentos en la misma palabra.</p>
+      <div class="rules">
+        <div class="r">
+          <span class="n">01</span>
+          <div>
+            <h4>Una palabra por titular.</h4>
+            <p>Si todo el título respira, deja de ser acento.</p>
+          </div>
+        </div>
+        <div class="r">
+          <span class="n">02</span>
+          <div>
+            <h4>Solo en hero principal.</h4>
+            <p>Nunca en cuerpos de texto, captions, ni cards secundarios.</p>
+          </div>
+        </div>
+        <div class="r">
+          <span class="n">03</span>
+          <div>
+            <h4>Lento.</h4>
+            <p>Loop largo (8s morph, 14s posición). El movimiento es presencia, no espectáculo.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============= INTERFACES (consolidated proof) ============= -->
+<section class="interfaces" data-screen-label="08 Interfaces">
+  <div class="wrap">
+
+    <div class="head">
+      <h2>Superficies<br/>tranquilas.</h2>
+      <p>Las interfaces que entregamos no se exhiben. Tienen bordes finos, una sola tipografía, sombras casi imperceptibles y el acento Sun solo donde algo está vivo. Aquí dos: el botón principal del sitio público, y el panel operativo del cliente.</p>
+    </div>
+
+    <div class="surfaces">
+
+      <div class="surface">
+        <span class="label">Acción principal</span>
+        <h4>Una sola forma de empezar una conversación.</h4>
+        <p style="font-size: 15px;">El botón primario es tinta sólida sobre lino. Sin glow, sin halo, sin gradiente — el contraste editorial es suficiente. El secundario es un outline hairline. No hay terciario.</p>
+        <div class="ctas">
+          <a class="btn primary" href="#">Agendar diagnóstico <span class="arrow">→</span></a>
+          <a class="btn secondary" href="#">Ver capacidades</a>
+          <span class="note">Dos. No más.</span>
+        </div>
+      </div>
+
+      <div class="surface preview">
+        <div class="preview-inner">
+          <div class="row1">
+            <span class="l">Operations · semanal</span>
+            <span class="r"><span class="dot"></span>En vivo</span>
+          </div>
+
+          <div class="preview-stat">
+            <div>
+              <div class="k">Leads calificados</div>
+              <div class="v">1,284</div>
+            </div>
+            <div class="sep"></div>
+            <div>
+              <div class="k">Tiempo respuesta</div>
+              <div class="v">2.4<span class="u">min</span></div>
+            </div>
+          </div>
+
+          <div class="preview-chart">
+            <svg viewBox="0 0 480 100" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="prev-g" x1="0" x2="0" y1="0" y2="1">
+                  <stop offset="0%" stop-color="oklch(0.86 0.18 92 / .32)"/>
+                  <stop offset="100%" stop-color="oklch(0.86 0.18 92 / 0)"/>
+                </linearGradient>
+              </defs>
+              <path d="M0 80 C 60 76, 100 70, 140 64 S 220 52, 260 56 S 340 38, 380 30 S 440 18, 480 12 L 480 100 L 0 100 Z" fill="url(#prev-g)"/>
+              <path d="M0 80 C 60 76, 100 70, 140 64 S 220 52, 260 56 S 340 38, 380 30 S 440 18, 480 12" fill="none" stroke="oklch(0.62 0.16 88)" stroke-width="1.4" stroke-linecap="round"/>
+              <circle cx="480" cy="12" r="3" fill="oklch(0.62 0.16 88)"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- ============= VOICE ============= -->
+<section class="voice" data-screen-label="09 Voz">
+  <div class="wrap">
+
+    <div class="head">
+      <h2>Cómo<br/>suena.</h2>
+      <p>Hablamos como un consultor con manos de operario. Confiados, directos, humanos. Estratégicos sin jerga.</p>
+    </div>
+
+    <div class="voice-body">
+
+      <div class="voice-col yes">
+        <h4><span class="marker">Sí</span>así</h4>
+        <blockquote>"Conectamos lo que ya usás en un solo sistema operativo."</blockquote>
+        <div class="src">Hero del sitio público.</div>
+
+        <blockquote style="margin-top: 36px;">"Lo construimos para que tu equipo deje de adivinar."</blockquote>
+        <div class="src">Caso de estudio, primer párrafo.</div>
+
+        <blockquote style="margin-top: 36px;">"Empezamos por entender cómo funcionan tus días."</blockquote>
+        <div class="src">Primera reunión, primera frase.</div>
+      </div>
+
+      <div class="voice-col no">
+        <h4><span class="marker">No</span>así</h4>
+        <blockquote>"Soluciones digitales innovadoras de última generación."</blockquote>
+        <div class="src">Cualquier landing pre-2020.</div>
+
+        <blockquote style="margin-top: 36px;">"Plataforma full-stack end-to-end optimizada con IA."</blockquote>
+        <div class="src">Pitch deck genérico.</div>
+
+        <blockquote style="margin-top: 36px;">"Transformamos tu empresa con experiencias únicas."</blockquote>
+        <div class="src">Agencia que confunde branding con resultados.</div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- ============= CLOSING ============= -->
+<section class="closing" data-screen-label="10 Cierre">
+  <div class="wrap">
+
+    <div class="big">
+      Diseñamos<br/>
+      <em>la forma</em><br/>
+      en que un negocio<br/>
+      funciona por dentro.
+    </div>
+
+    <div class="foot">
+      <div>
+        <span class="k">Documento</span>
+        <span class="v">Dirección de marca, edición Light</span>
+      </div>
+      <div>
+        <span class="k">Versión</span>
+        <span class="v">0.2 · mayo 2026</span>
+      </div>
+      <div>
+        <span class="k">Operador</span>
+        <span class="v">Alejandro · Pegasus Pixels</span>
+      </div>
+      <div>
+        <span class="k">Contacto</span>
+        <span class="v">hello@pegasuspixels.com</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+</body>
+</html>
