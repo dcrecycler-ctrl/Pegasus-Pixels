@@ -1,3 +1,5 @@
+import Topbar from './components/Topbar'
+
 export default function Home() {
   return (
     <>
@@ -9,23 +11,7 @@ export default function Home() {
       </div>
 
       {/* ── Topbar ── */}
-      <header className="topbar">
-        <a className="brand" href="#">
-          <span className="mark">P</span>
-          <span>Pegasus Pixels</span>
-        </a>
-        <nav>
-          <a href="#">Sistema</a>
-          <a href="#">Casos</a>
-          <a href="#">Operador</a>
-          <a href="#">Diagnóstico</a>
-          <a href="#">Precios</a>
-        </nav>
-        <div className="ctas">
-          <a className="btn secondary" href="#">Iniciar sesión</a>
-          <a className="btn primary" href="#">Agendar llamada <span className="arrow">→</span></a>
-        </div>
-      </header>
+      <Topbar />
 
       {/* ── Hero ── */}
       <section className="hero">
