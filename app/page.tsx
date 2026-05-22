@@ -37,12 +37,7 @@ export default function Home() {
               </div>
 
               <h1>
-                Sistemas que<br />
-                <span className="indent">
-                  <em className="h1-operan">gestionan</em>
-                </span><br />
-                tu negocio, no<br />
-                solo lo presentan.
+                Soluciones digitales para organizar, optimizar y controlar operaciones empresariales
               </h1>
 
               <p className="sub">

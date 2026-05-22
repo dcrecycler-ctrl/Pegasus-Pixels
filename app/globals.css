@@ -238,16 +238,7 @@ section { position: relative; }
 .hero-rating .stars { color: var(--sun-deep); letter-spacing: 1px; font-size: 13px; }
 .hero-rating .sep { width: 1px; height: 14px; background: rgba(0,0,0,0.12); }
 
-.hero h1 { max-width: 14ch; letter-spacing: -0.04em; font-size: clamp(38px, 4.2vw, 62px); }
-.hero h1 .indent { display: inline-block; padding-left: 1.2em; }
-.hero h1 .h1-operan {
-  font-family: var(--font-instrument-serif), serif;
-  font-style: italic;
-  font-weight: 400;
-  color: var(--ink);
-  font-size: 1.5em;
-  line-height: 0.9;
-}
+.hero h1 { max-width: 20ch; letter-spacing: -0.04em; font-size: clamp(32px, 3.6vw, 54px); }
 .hero .sub {
   margin-top: 28px;
   max-width: 50ch;
