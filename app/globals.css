@@ -72,11 +72,25 @@ section { position: relative; }
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 12px;
+  flex-wrap: wrap;
+  gap: 4px 10px;
   font-size: 13px;
   letter-spacing: -0.005em;
   position: relative;
   z-index: 60;
+  text-align: center;
+}
+.ribbon-main {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  white-space: nowrap;
+}
+.ribbon-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
 }
 .ribbon .pulse {
   width: 7px;

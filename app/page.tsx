@@ -6,9 +6,13 @@ export default function Home() {
     <>
       {/* ── Ribbon ── */}
       <div className="ribbon">
-        <span className="pulse" />
-        <span>Nuevo programa de diagnóstico operativo — agendá una sesión gratuita.</span>
-        <a href="#">Reservar →</a>
+        <span className="ribbon-main">
+          <span className="pulse" />
+          Nuevo programa de diagnóstico operativo
+        </span>
+        <span className="ribbon-cta">
+          — agendá una sesión gratuita.&nbsp;<a href="#">Reservar →</a>
+        </span>
       </div>
 
       {/* ── Topbar ── */}
