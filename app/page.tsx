@@ -37,7 +37,7 @@ export default function Home() {
               </div>
 
               <h1>
-                Soluciones digitales para organizar, optimizar y controlar operaciones empresariales
+                Soluciones digitales para <span className="serif">organizar, optimizar y controlar</span> operaciones empresariales
               </h1>
 
               <p className="sub">
